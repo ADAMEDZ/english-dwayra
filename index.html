@@ -1,211 +1,752 @@
-
-<h2 class="sr-only">Full session plans for Cancel Culture and Ambition debates</h2>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B.L.U.E. System — Broadlearning Universal Education</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>
+tailwind.config={theme:{extend:{fontFamily:{display:['Outfit','sans-serif'],body:['Source Serif 4','Georgia','serif']}}}}
+</script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font-sans); }
-  .tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; padding: 1rem 0 0; }
-  .tab { padding: 8px 20px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); font-size: 14px; font-weight: 500; cursor: pointer; color: var(--color-text-secondary); background: transparent; transition: all 0.15s; }
-  .tab.active { background: var(--color-background-info); color: var(--color-text-info); border-color: var(--color-border-info); }
-  .page { display: none; }
-  .page.active { display: block; }
-  .section { margin-bottom: 1.5rem; }
-  .section-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-text-tertiary); margin-bottom: 10px; }
-  .header-card { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1.5rem; }
-  .header-title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
-  .header-meta { display: flex; flex-wrap: wrap; gap: 10px; }
-  .pill { font-size: 12px; padding: 3px 10px; border-radius: var(--border-radius-md); font-weight: 500; }
-  .pill-debate { background: #EEEDFE; color: #3C3489; }
-  .pill-discussion { background: #E1F5EE; color: #085041; }
-  .pill-warn { background: #FAEEDA; color: #633806; }
-  .timeline { display: flex; flex-direction: column; gap: 0; }
-  .trow { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
-  .trow:last-child { border-bottom: none; }
-  .ttime { font-size: 12px; font-weight: 500; color: var(--color-text-tertiary); min-width: 60px; padding-top: 2px; }
-  .tdur { font-size: 11px; padding: 2px 8px; border-radius: var(--border-radius-md); background: var(--color-background-secondary); color: var(--color-text-secondary); min-width: 48px; text-align: center; flex-shrink: 0; }
-  .tcontent { flex: 1; }
-  .tcontent strong { font-size: 14px; font-weight: 500; color: var(--color-text-primary); display: block; margin-bottom: 2px; }
-  .tcontent p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
-  .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
-  .side-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem; }
-  .side-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-  .side-pro .side-label { color: #085041; }
-  .side-con .side-label { color: #3C3489; }
-  .arg { font-size: 13px; color: var(--color-text-secondary); padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); line-height: 1.5; }
-  .arg:last-child { border-bottom: none; padding-bottom: 0; }
-  .arg::before { content: "→ "; color: var(--color-text-tertiary); }
-  .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
-  .role-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 12px; }
-  .role-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px; }
-  .role-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.4; }
-  .qs { display: flex; flex-direction: column; gap: 8px; }
-  .q { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 14px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
-  .q::before { content: "Q: "; font-weight: 500; color: var(--color-text-primary); }
-  .tip { background: #FAEEDA; border-radius: var(--border-radius-md); padding: 10px 14px; font-size: 13px; color: #633806; margin-bottom: 8px; line-height: 1.5; }
-  .tip::before { content: "Tip — "; font-weight: 500; }
-  .warn-box { background: #FAECE7; border-radius: var(--border-radius-md); padding: 10px 14px; font-size: 13px; color: #4A1B0C; line-height: 1.5; margin-bottom: 1rem; }
-  .warn-box::before { content: "Note — "; font-weight: 500; }
-  .scoring { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
-  .score-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; text-align: center; }
-  .score-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
-  .score-pts { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+:root{--bg:#0B1120;--bg2:#111827;--bg3:#1F2937;--fg:#F1F5F9;--fgm:#94A3B8;--acc:#0891B2;--acc2:#D97706;--ok:#10B981;--err:#EF4444;--card:#1E293B;--brd:#334155;--glow:rgba(8,145,178,0.15)}
+.lm{--bg:#F8FAFC;--bg2:#FFF;--bg3:#F1F5F9;--fg:#0F172A;--fgm:#64748B;--acc:#0891B2;--acc2:#B45309;--ok:#059669;--err:#DC2626;--card:#FFF;--brd:#E2E8F0;--glow:rgba(8,145,178,0.08)}
+*{box-sizing:border-box}body{background:var(--bg);color:var(--fg);font-family:'Source Serif 4',Georgia,serif;margin:0}
+h1,h2,h3,h4,h5,h6,.fd{font-family:'Outfit',sans-serif}
+::-webkit-scrollbar{width:7px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--brd);border-radius:4px}
+#mc{animation:fu .3s ease}@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.lb{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-family:Outfit;font-weight:700;font-size:13px}
+.l1{background:linear-gradient(135deg,#10B981,#059669);color:#fff}
+.l2{background:linear-gradient(135deg,#14B8A6,#0D9488);color:#fff}
+.l3{background:linear-gradient(135deg,#0891B2,#0E7490);color:#fff}
+.l4{background:linear-gradient(135deg,#D97706,#B45309);color:#fff}
+.l5{background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff}
+.sv{background:rgba(16,185,129,.15);color:#10B981;border:1px solid rgba(16,185,129,.3)}
+.sr{background:rgba(217,119,6,.15);color:#D97706;border:1px solid rgba(217,119,6,.3)}
+.sd{background:rgba(148,163,184,.15);color:#94A3B8;border:1px solid rgba(148,163,184,.3)}
+.gc:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}.gc{transition:transform .2s,box-shadow .2s}
+.pd{animation:pd 2s infinite}@keyframes pd{0%,100%{opacity:1}50%{opacity:.4}}
+.toast{animation:si .3s ease,fo .3s ease 2.7s forwards}@keyframes si{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes fo{to{opacity:0;transform:translateX(40px)}}
+#hc{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0}
+.guide-content h2{font-family:Outfit;font-size:1.4rem;font-weight:700;margin:1.8rem 0 .6rem;color:var(--fg);border-bottom:1px solid var(--brd);padding-bottom:.4rem}
+.guide-content h3{font-family:Outfit;font-size:1.1rem;font-weight:600;margin:1.3rem 0 .4rem;color:var(--fg)}
+.guide-content p{margin:.6rem 0;line-height:1.75;color:var(--fgm)}
+.guide-content ul,.guide-content ol{margin:.6rem 0;padding-left:1.5rem;color:var(--fgm)}
+.guide-content li{margin:.3rem 0;line-height:1.6}
+.guide-content code{background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:.9em}
+.guide-content blockquote{border-left:3px solid var(--acc);padding-left:1rem;margin:1rem 0;color:var(--fgm);font-style:italic}
+.wb{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:1rem;margin:1rem 0}
+.tb{background:rgba(8,145,178,.1);border:1px solid rgba(8,145,178,.3);border-radius:8px;padding:1rem;margin:1rem 0}
+.mo{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--acc);outline-offset:2px}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:768px){.ht{font-size:2.4rem!important}}
+.skel{background:linear-gradient(90deg,var(--bg3) 25%,var(--brd) 50%,var(--bg3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:6px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.star{cursor:pointer;transition:color .15s}.star:hover,.star.active{color:#F59E0B}
+.rc{transition:all .2s}.rc:hover{border-color:var(--acc);transform:translateY(-2px)}
 </style>
+</head>
+<body class="min-h-screen">
 
-<div class="tabs">
-  <button class="tab active" onclick="switchTab('cancel')">Session 27 — Cancel culture</button>
-  <button class="tab" onclick="switchTab('ambition')">Session 25 — Ambition</button>
+<header class="fixed top-0 left-0 right-0 z-50 border-b" style="background:var(--bg2);border-color:var(--brd)">
+<div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
+<a href="#/" class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg flex items-center justify-center fd font-black text-white text-sm" style="background:linear-gradient(135deg,var(--acc),#06B6D4)">B</div><span class="fd font-bold text-base tracking-tight" style="color:var(--fg)">B.L.U.E.</span></a>
+<nav class="hidden md:flex items-center gap-0.5">
+<a href="#/" class="nl px-3 py-1.5 rounded-lg text-xs fd font-medium" style="color:var(--fgm)" data-p="home">Home</a>
+<a href="#/browse" class="nl px-3 py-1.5 rounded-lg text-xs fd font-medium" style="color:var(--fgm)" data-p="browse">Browse</a>
+<a href="#/discover" class="nl px-3 py-1.5 rounded-lg text-xs fd font-medium" style="color:var(--fgm)" data-p="discover">Discover Resources</a>
+<a href="#/graph" class="nl px-3 py-1.5 rounded-lg text-xs fd font-medium" style="color:var(--fgm)" data-p="graph">Knowledge Graph</a>
+<a href="#/create" class="nl px-3 py-1.5 rounded-lg text-xs fd font-medium" style="color:var(--fgm)" data-p="create">Create</a>
+<a href="#/verify" class="nl px-3 py-1.5 rounded-lg text-xs fd font-medium" style="color:var(--fgm)" data-p="verify">Verify</a>
+</nav>
+<div class="flex items-center gap-2">
+<button id="tt" onclick="toggleTheme()" class="w-8 h-8 rounded-lg flex items-center justify-center" style="color:var(--fgm)" aria-label="Toggle theme"><i class="fas fa-sun text-sm"></i></button>
+<div id="aa"></div>
+</div>
+</div>
+</header>
+
+<div class="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t flex justify-around py-1.5" style="background:var(--bg2);border-color:var(--brd)">
+<a href="#/" class="mn flex flex-col items-center gap-0.5 px-2 py-0.5 text-[10px]" style="color:var(--fgm)" data-p="home"><i class="fas fa-home text-sm"></i>Home</a>
+<a href="#/browse" class="mn flex flex-col items-center gap-0.5 px-2 py-0.5 text-[10px]" style="color:var(--fgm)" data-p="browse"><i class="fas fa-book text-sm"></i>Browse</a>
+<a href="#/discover" class="mn flex flex-col items-center gap-0.5 px-2 py-0.5 text-[10px]" style="color:var(--fgm)" data-p="discover"><i class="fas fa-globe text-sm"></i>Discover</a>
+<a href="#/create" class="mn flex flex-col items-center gap-0.5 px-2 py-0.5 text-[10px]" style="color:var(--fgm)" data-p="create"><i class="fas fa-plus text-sm"></i>Create</a>
+<a href="#/verify" class="mn flex flex-col items-center gap-0.5 px-2 py-0.5 text-[10px]" style="color:var(--fgm)" data-p="verify"><i class="fas fa-check text-sm"></i>Verify</a>
 </div>
 
-<div id="cancel" class="page active">
-  <div class="header-card">
-    <div class="header-title">Cancel culture: justice or mob mentality?</div>
-    <div class="header-meta">
-      <span class="pill pill-debate">Debate</span>
-      <span class="pill pill-warn">90 min</span>
-      <span class="pill" style="background:#E1F5EE;color:#085041;">Week 14 · Monday</span>
-      <span class="pill" style="background:#FCEBEB;color:#791F1F;">Hot topic — ground rules required</span>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Before the session — manager prep</div>
-    <div class="tip">Assign sides randomly 24h before — don't let members choose their own side.</div>
-    <div class="tip">Write 3 real examples on the board before they arrive: J.K. Rowling, Johnny Depp, local social media pile-ons.</div>
-    <div class="warn-box">Set one ground rule out loud at the start: "We debate the idea, not the person. No personal attacks."</div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Session timeline</div>
-    <div class="timeline">
-      <div class="trow"><div class="ttime">0:00</div><div class="tdur">10 min</div><div class="tcontent"><strong>Warm-up — quick takes</strong><p>Each member answers in 1 sentence: "Name one person or brand that was cancelled. Was it fair?" No debate yet — just get talking.</p></div></div>
-      <div class="trow"><div class="ttime">0:10</div><div class="tdur">5 min</div><div class="tcontent"><strong>Define the motion</strong><p>Manager reads aloud: "Cancel culture is mob mentality dressed as justice." Sides revealed. 5 min to huddle and list 3 arguments.</p></div></div>
-      <div class="trow"><div class="ttime">0:15</div><div class="tdur">6 min</div><div class="tcontent"><strong>Opening statements</strong><p>Each side gets 3 min. No interruptions. Moderator times strictly.</p></div></div>
-      <div class="trow"><div class="ttime">0:21</div><div class="tdur">20 min</div><div class="tcontent"><strong>Open debate — round 1</strong><p>Free-flowing, moderator controls the floor. Push shy members: "You haven't spoken — what do you think?" Keep it on track.</p></div></div>
-      <div class="trow"><div class="ttime">0:41</div><div class="tdur">4 min</div><div class="tcontent"><strong>Rebuttal prep</strong><p>Each side has 2 min to write their strongest counter to what they just heard.</p></div></div>
-      <div class="trow"><div class="ttime">0:45</div><div class="tdur">10 min</div><div class="tcontent"><strong>Rebuttal round</strong><p>Each side delivers rebuttal (2 min each). Then open floor for 6 min of cross-questioning.</p></div></div>
-      <div class="trow"><div class="ttime">0:55</div><div class="tdur">10 min</div><div class="tcontent"><strong>Open floor — undecided members</strong><p>Anyone not on a side now speaks. What convinced them? What didn't? This is the richest part.</p></div></div>
-      <div class="trow"><div class="ttime">1:05</div><div class="tdur">6 min</div><div class="tcontent"><strong>Closing statements</strong><p>Each side gets 3 min. Must reference something the other side said.</p></div></div>
-      <div class="trow"><div class="ttime">1:11</div><div class="tdur">9 min</div><div class="tcontent"><strong>Debrief + vote</strong><p>Group votes: who argued better (not who they agree with). Manager gives language feedback — top 3 expressions used well, top 3 mistakes heard.</p></div></div>
-      <div class="trow"><div class="ttime">1:20</div><div class="tdur">—</div><div class="tcontent"><strong>Close</strong><p>Announce next session topic. Give prep prompt if needed.</p></div></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Arguments bank — both sides</div>
-    <div class="sides">
-      <div class="side-card side-pro">
-        <div class="side-label">Side A — It's justice</div>
-        <div class="arg">Powerful people historically faced no consequences — cancellation fills a legal gap</div>
-        <div class="arg">Social pressure is a legitimate democratic tool, not violence</div>
-        <div class="arg">Victims of abuse deserve public validation, not silence</div>
-        <div class="arg">Companies and celebrities profit from public trust — losing it is a fair consequence</div>
-        <div class="arg">It's not permanent — many "cancelled" people return within months</div>
-      </div>
-      <div class="side-card side-con">
-        <div class="side-label">Side B — It's mob mentality</div>
-        <div class="arg">Punishment without due process or evidence — trial by Twitter</div>
-        <div class="arg">Context is always stripped — one old tweet destroys a career</div>
-        <div class="arg">People pile on for social approval, not genuine moral concern</div>
-        <div class="arg">It silences people and kills honest public discourse</div>
-        <div class="arg">Disproportionate — minor mistakes get the same treatment as serious crimes</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Manager's intervention questions — use when debate slows</div>
-    <div class="qs">
-      <div class="q">What's the difference between cancellation and accountability?</div>
-      <div class="q">If someone apologizes, should they be forgiven? Who decides?</div>
-      <div class="q">Would you cancel a close friend for the same thing you'd cancel a celebrity?</div>
-      <div class="q">Is silence on social media the same as supporting someone?</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Scoring rubric</div>
-    <div class="scoring">
-      <div class="score-card"><div class="score-label">Argument quality</div><div class="score-pts">/5</div></div>
-      <div class="score-card"><div class="score-label">Use of examples</div><div class="score-pts">/5</div></div>
-      <div class="score-card"><div class="score-label">Rebuttal strength</div><div class="score-pts">/5</div></div>
-      <div class="score-card"><div class="score-label">Fluency & clarity</div><div class="score-pts">/5</div></div>
-    </div>
-  </div>
-</div>
-
-<div id="ambition" class="page">
-  <div class="header-card">
-    <div class="header-title">Is ambition a blessing or a curse?</div>
-    <div class="header-meta">
-      <span class="pill pill-discussion">Discussion</span>
-      <span class="pill pill-warn">60 min</span>
-      <span class="pill" style="background:#E1F5EE;color:#085041;">Week 13 · Monday</span>
-      <span class="pill" style="background:#EEEDFE;color:#3C3489;">Open discussion — no assigned sides</span>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Before the session — manager prep</div>
-    <div class="tip">Write this quote on the board before they arrive: "Ambition is the last refuge of the failure." — Oscar Wilde. Don't explain it. Let them react.</div>
-    <div class="tip">Have 2 contrasting examples ready: Elon Musk (built rockets, destroyed his own company's culture) and a local overworked student who burned out.</div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Session timeline</div>
-    <div class="timeline">
-      <div class="trow"><div class="ttime">0:00</div><div class="tdur">5 min</div><div class="tcontent"><strong>Warm-up — rate yourself</strong><p>Each member rates their own ambition 1–10 out of loud. No explanation yet — just numbers. Creates instant curiosity and comparison.</p></div></div>
-      <div class="trow"><div class="ttime">0:05</div><div class="tdur">10 min</div><div class="tcontent"><strong>Define it first</strong><p>Group answers: what is ambition exactly? Is it the same as greed? Same as motivation? Manager writes key words on board as they speak.</p></div></div>
-      <div class="trow"><div class="ttime">0:15</div><div class="tdur">15 min</div><div class="tcontent"><strong>Round 1 — personal stories</strong><p>Each member shares a moment where their ambition helped them OR hurt them. 1–2 min each. No commenting yet — just listening.</p></div></div>
-      <div class="trow"><div class="ttime">0:30</div><div class="tdur">15 min</div><div class="tcontent"><strong>Round 2 — open debate</strong><p>Now challenge each other's stories. Manager picks the most interesting story from round 1 and opens the floor: "Does everyone agree this was ambition, or something else?"</p></div></div>
-      <div class="trow"><div class="ttime">0:45</div><div class="tdur">8 min</div><div class="tcontent"><strong>Big question vote</strong><p>Manager asks: "Ambitious people — do they make the world better or worse?" Everyone votes yes/no then defends in 30 seconds.</p></div></div>
-      <div class="trow"><div class="ttime">0:53</div><div class="tdur">7 min</div><div class="tcontent"><strong>Debrief + language feedback</strong><p>Manager highlights best expressions used, common grammar mistakes heard, and gives the group one phrase to practice before next session.</p></div></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Discussion angles — push these if the group goes shallow</div>
-    <div class="sides">
-      <div class="side-card side-pro">
-        <div class="side-label">Ambition as blessing</div>
-        <div class="arg">Drives invention — without ambition there's no progress</div>
-        <div class="arg">Gives life direction and meaning beyond survival</div>
-        <div class="arg">Ambitious people raise the bar for everyone around them</div>
-        <div class="arg">The alternative — complacency — is arguably worse</div>
-      </div>
-      <div class="side-card side-con">
-        <div class="side-label">Ambition as curse</div>
-        <div class="arg">Destroys relationships — always chasing the next thing</div>
-        <div class="arg">Never satisfied — success never feels like enough</div>
-        <div class="arg">Creates ruthlessness — stepping over others to climb</div>
-        <div class="arg">Culturally imposed — who decided ambition is a virtue?</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Manager's intervention questions</div>
-    <div class="qs">
-      <div class="q">Can someone be too ambitious? Where's the line?</div>
-      <div class="q">Is ambition different for men and women in our culture?</div>
-      <div class="q">Would you rather be ambitious and unhappy, or content and average?</div>
-      <div class="q">Does ambition require sacrificing something — and is that sacrifice always worth it?</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Roles for this session</div>
-    <div class="roles-grid">
-      <div class="role-card"><div class="role-name">Moderator</div><div class="role-desc">You (the manager). Keep time, pull in quiet members, redirect when off-topic.</div></div>
-      <div class="role-card"><div class="role-name">Devil's advocate</div><div class="role-desc">Assign one member to always argue the opposite of whatever the group agrees on.</div></div>
-      <div class="role-card"><div class="role-name">Note-taker</div><div class="role-desc">One member writes the best quotes and arguments on the board in real time.</div></div>
-    </div>
-  </div>
-</div>
+<main id="mc" class="pt-14 pb-16 md:pb-0 min-h-screen"></main>
+<div id="mdc" class="fixed inset-0 z-[100] hidden"></div>
+<div id="tc" class="fixed top-16 right-4 z-[110] flex flex-col gap-2 max-w-sm"></div>
 
 <script>
-function switchTab(id) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
+// ===================== CONFIG =====================
+const C={app:'B.L.U.E.',full:'Broadlearning Universal Education',minV:3,passTh:0.8,adRW:0.7,adRVW:0.3,minRev:5};
+
+// ===================== UTILS =====================
+const uid=()=>'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const now=()=>new Date().toISOString();
+const da=n=>{const d=new Date();d.setDate(d.getDate()-n);return d.toISOString()};
+const esc=s=>{const d=document.createElement('div');d.textContent=s;return d.innerHTML};
+const cl=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+
+function toast(m,t='info'){const c=document.getElementById('tc');const cs={info:'border-l-4 border-cyan-500',success:'border-l-4 border-emerald-500',error:'border-l-4 border-red-500',warning:'border-l-4 border-amber-500'};const ic={info:'fa-info-circle text-cyan-400',success:'fa-check-circle text-emerald-400',error:'fa-exclamation-circle text-red-400',warning:'fa-exclamation-triangle text-amber-400'};const e=document.createElement('div');e.className=`toast ${cs[t]} rounded-lg px-4 py-3 flex items-start gap-3 shadow-xl`;e.style.cssText='background:var(--card);color:var(--fg)';e.innerHTML=`<i class="fas ${ic[t]} mt-0.5"></i><span class="text-sm">${m}</span>`;c.appendChild(e);setTimeout(()=>e.remove(),3000)}
+
+function showModal(h){const m=document.getElementById('mdc');m.innerHTML=`<div class="mo fixed inset-0 flex items-center justify-center p-4" onclick="if(event.target===this)closeModal()"><div class="rounded-xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto" style="background:var(--card);border:1px solid var(--brd)">${h}</div></div>`;m.classList.remove('hidden')}
+function closeModal(){const m=document.getElementById('mdc');m.classList.add('hidden');m.innerHTML=''}
+
+// ===================== FREE API SERVICES =====================
+// All these APIs are free, require no API key, and support CORS
+
+const API = {
+  // Wikipedia Search API - free, no key, CORS enabled
+  async wikipedia(query, limit=5) {
+    try {
+      const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&srlimit=${limit}&format=json&origin=*`;
+      const r = await fetch(url);
+      const d = await r.json();
+      return (d.query?.search||[]).map(r=>({
+        source:'wikipedia',
+        id:`wiki_${r.pageid}`,
+        title:r.title,
+        snippet:r.snippet.replace(/<[^>]+>/g,''),
+        url:`https://en.wikipedia.org/wiki/${encodeURIComponent(r.title.replace(/ /g,'_'))}`,
+        icon:'fa-brands fa-wikipedia-w',
+        iconColor:'#636466',
+        type:'Encyclopedia Article',
+        pageid:r.pageid
+      }));
+    } catch(e) { console.warn('Wikipedia API error:',e); return []; }
+  },
+
+  // Wikipedia page summary - free, no key, CORS enabled
+  async wikiSummary(title) {
+    try {
+      const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+      const r = await fetch(url);
+      const d = await r.json();
+      return { title:d.title, extract:d.extract, thumbnail:d.thumbnail?.source, url:d.content_urls?.desktop?.page };
+    } catch(e) { return null; }
+  },
+
+  // Open Library API - free, no key, CORS enabled
+  async openLibrary(query, limit=6) {
+    try {
+      const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=${limit}&fields=title,author_name,cover_i,first_publish_year,key,isbn,subject`;
+      const r = await fetch(url);
+      const d = await r.json();
+      return (d.docs||[]).map(b=>({
+        source:'openlibrary',
+        id:`ol_${b.key}`,
+        title:b.title,
+        snippet:b.author_name?`By ${b.author_name.slice(0,2).join(', ')}${b.author_name.length>2?' et al':''}${b.first_publish_year?` (${b.first_publish_year})`:''}`:'',
+        url:`https://openlibrary.org${b.key}`,
+        cover:b.cover_i?`https://covers.openlibrary.org/b/id/${b.cover_i}-M.jpg`:null,
+        icon:'fa-solid fa-book',
+        iconColor:'#D97706',
+        type:'Free Book / Textbook',
+        year:b.first_publish_year,
+        authors:b.author_name
+      }));
+    } catch(e) { console.warn('Open Library API error:',e); return []; }
+  },
+
+  // Semantic Scholar API - free, no key, CORS enabled
+  async semanticScholar(query, limit=5) {
+    try {
+      const url = `https://api.semanticscholar.org/graph/v1/paper/search?query=${encodeURIComponent(query)}&limit=${limit}&fields=title,year,authors,url,abstract,citationCount,openAccessPdf,fieldsOfStudy`;
+      const r = await fetch(url);
+      const d = await r.json();
+      return (d.data||[]).map(p=>({
+        source:'semanticscholar',
+        id:`ss_${p.paperId}`,
+        title:p.title,
+        snippet:p.abstract?p.abstract.slice(0,200)+'...':(p.authors?.map(a=>a.name).join(', ')||''),
+        url:p.url||`https://www.semanticscholar.org/paper/${p.paperId}`,
+        pdf:p.openAccessPdf?.url||null,
+        icon:'fa-solid fa-graduation-cap',
+        iconColor:'#7C3AED',
+        type:'Research Paper',
+        year:p.year,
+        citations:p.citationCount,
+        fields:p.fieldsOfStudy
+      }));
+    } catch(e) { console.warn('Semantic Scholar API error:',e); return []; }
+  },
+
+  // DOAJ API - free, no key, CORS enabled
+  async doaj(query, limit=5) {
+    try {
+      const url = `https://doaj.org/api/search/articles/${encodeURIComponent(query)}?page=1&pageSize=${limit}`;
+      const r = await fetch(url);
+      const d = await r.json();
+      return (d.results||[]).map(a=>({
+        source:'doaj',
+        id:`doaj_${a.id}`,
+        title:a.bibjson?.title||'Untitled',
+        snippet:a.bibjson?.abstract?.slice(0,200)+'...'||a.bibjson?.journal?.title||'',
+        url:a.bibjson?.link?.[0]?.url||'#',
+        icon:'fa-solid fa-file-lines',
+        iconColor:'#0891B2',
+        type:'Open Access Article',
+        year:a.bibjson?.year,
+        journal:a.bibjson?.journal?.title
+      }));
+    } catch(e) { console.warn('DOAJ API error:',e); return []; }
+  },
+
+  // Crossref API - free, no key, CORS enabled
+  async crossref(query, limit=5) {
+    try {
+      const url = `https://api.crossref.org/works?query=${encodeURIComponent(query)}&rows=${limit}&filter=has-full-text:true`;
+      const r = await fetch(url);
+      const d = await r.json();
+      return (d.message?.items||[]).map(p=>({
+        source:'crossref',
+        id:`cr_${p.DOI||uid()}`,
+        title:p.title?.[0]||'Untitled',
+        snippet:p.abstract?p.abstract.replace(/<[^>]+>/g,'').slice(0,200)+'...':(p.author?.map(a=>a.given+' '+a.family).join(', ')||''),
+        url:p.URL||(`https://doi.org/${p.DOI}`),
+        icon:'fa-solid fa-newspaper',
+        iconColor:'#EC4899',
+        type:'Academic Paper (Crossref)',
+        year:p.published?.['date-parts']?.[0]?.[0],
+        doi:p.DOI
+      }));
+    } catch(e) { console.warn('Crossref API error:',e); return []; }
+  },
+
+  // Search all sources in parallel
+  async searchAll(query, sources=['wikipedia','openlibrary','semanticscholar','doaj','crossref']) {
+    const fns = {
+      wikipedia: ()=>this.wikipedia(query),
+      openlibrary: ()=>this.openLibrary(query),
+      semanticscholar: ()=>this.semanticScholar(query),
+      doaj: ()=>this.doaj(query),
+      crossref: ()=>this.crossref(query),
+    };
+    const promises = sources.map(s=>fns[s]?.()||Promise.resolve([]));
+    const results = await Promise.allSettled(promises);
+    const merged = {};
+    sources.forEach((s,i)=>{
+      merged[s] = results[i].status==='fulfilled'?results[i].value:[];
+    });
+    return merged;
+  }
+};
+
+// ===================== DATA STORE =====================
+class DB{
+constructor(){this.load();if(!this.d.users.length)this.seed()}
+load(){const r=localStorage.getItem('blue_data');this.d=r?JSON.parse(r):{users:[],domains:[],guides:[],prereqs:[],verifs:[],votes:[],listings:[],ratings:[],certs:[]}}
+save(){localStorage.setItem('blue_data',JSON.stringify(this.d))}
+reset(){localStorage.removeItem('blue_data');this.d={users:[],domains:[],guides:[],prereqs:[],verifs:[],votes:[],listings:[],ratings:[],certs:[]};this.seed()}
+seed(){
+this.d.users=[
+{id:'u1',username:'admin',email:'admin@blue.edu',pw:'admin',role:'admin',rep:500,at:da(365)},
+{id:'u2',username:'dr.volt',email:'volt@blue.edu',pw:'pass',role:'senior_verifier',rep:890,at:da(300)},
+{id:'u3',username:'chef.maria',email:'maria@blue.edu',pw:'pass',role:'verifier',rep:420,at:da(250)},
+{id:'u4',username:'builder.sam',email:'sam@blue.edu',pw:'pass',role:'verifier',rep:310,at:da(200)},
+{id:'u5',username:'electronics.fan',email:'fan@blue.edu',pw:'pass',role:'registered',rep:85,at:da(90)},
+{id:'u6',username:'med.prof',email:'med@blue.edu',pw:'pass',role:'verifier',rep:650,at:da(280)},
+{id:'u7',username:'curious.learner',email:'learn@blue.edu',pw:'pass',role:'registered',rep:30,at:da(14)}
+];
+this.d.domains=[
+{id:'d1',name:'Electronics',icon:'fa-microchip',color:'#0891B2',pid:null},
+{id:'d1a',name:'Motor Control',icon:'fa-gear',color:'#0891B2',pid:'d1'},
+{id:'d1b',name:'Circuit Design',icon:'fa-diagram-project',color:'#0891B2',pid:'d1'},
+{id:'d1c',name:'Embedded Systems',icon:'fa-memory',color:'#0891B2',pid:'d1'},
+{id:'d2',name:'Cooking',icon:'fa-utensils',color:'#D97706',pid:null},
+{id:'d2a',name:'Baking',icon:'fa-bread-slice',color:'#D97706',pid:'d2'},
+{id:'d2b',name:'Sauces',icon:'fa-bottle-droplet',color:'#D97706',pid:'d2'},
+{id:'d3',name:'Construction',icon:'fa-helmet-safety',color:'#7C3AED',pid:null},
+{id:'d3a',name:'Framing',icon:'fa-house-chimney',color:'#7C3AED',pid:'d3'},
+{id:'d3b',name:'Plumbing',icon:'fa-faucet-drip',color:'#7C3AED',pid:'d3'},
+{id:'d4',name:'Medicine',icon:'fa-staff-snake',color:'#DC2626',pid:null},
+{id:'d4a',name:'First Aid',icon:'fa-kit-medical',color:'#DC2626',pid:'d4'},
+{id:'d4b',name:'Anatomy',icon:'fa-bone',color:'#DC2626',pid:'d4'}
+];
+this.d.guides=[
+{id:'g1',title:'How to Use a Soldering Iron',did:'d1',sid:'d1b',lv:1,st:'verified',aid:'u2',ed:1,
+out:['Safely operate a soldering iron','Create clean solder joints on through-hole components'],
+mat:['Soldering iron (25-60W)','60/40 rosin-core solder','Soldering stand','Damp sponge','Safety glasses'],
+safe:['Always use in a well-ventilated area','Never touch the iron tip — exceeds 350°C','Keep flammable materials away','Unplug when not in use'],
+cnt:`## Introduction\nSoldering is the fundamental skill in electronics that joins two metal surfaces using a filler metal. Every circuit you'll ever build starts here.\n\n## Step 1: Prepare Your Workspace\nEnsure adequate ventilation. Place your soldering iron in its stand on a heat-resistant surface. Wet the cleaning sponge.\n\n> **Safety First**: Solder contains lead. Wash your hands after every session.\n\n## Step 2: Heat the Iron\nPlug in and wait 2-3 minutes. A properly heated iron melts solder instantly on contact.\n\n## Step 3: Tin the Tip\nApply a small amount of solder to the hot tip. This improves heat transfer and protects from oxidation. Wipe excess on the damp sponge.\n\n## Step 4: Prepare the Joint\nStrip about 5mm of insulation. Bend leads slightly to hold components in place.\n\n## Step 5: Apply Heat, Then Solder\nIron touches the joint first, then feed solder into the joint. Hold 2-3 seconds until solder flows smoothly.\n\n## Step 6: Inspect the Joint\nA good joint is shiny, smooth, cone-shaped. No cold joints (grey, cracked, blobby).\n\n<div class="wb"><strong>Common Mistake:</strong> Too much solder creates bridges. Use solder wick to remove excess.</div>\n\n## Step 7: Clean Up\nTrim leads with flush cutters. Wipe tip, re-tin, return to stand. Unplug.`,
+nx:['g4','g5'],sat:da(180),vat:da(172)},
+
+{id:'g2',title:'How to Read a Circuit Diagram',did:'d1',sid:'d1b',lv:1,st:'verified',aid:'u2',ed:1,
+out:['Identify common schematic symbols','Trace current flow through a circuit','Distinguish series from parallel connections'],
+mat:['Circuit diagram reference sheet','Pencil and paper'],safe:[],
+cnt:`## Introduction\nCircuit diagrams are the language of electronics. Before building anything, you must read this visual language.\n\n## Step 1: Basic Symbols\n- **Resistor**: Zigzag (US) or rectangle (IEC)\n- **Capacitor**: Two parallel lines\n- **Diode**: Triangle with line\n- **Transistor**: Circle with B, C, E\n- **Ground**: Three decreasing lines\n- **Power (VCC)**: Arrow up or voltage label\n\n## Step 2: Follow the Lines\nLines = wires. Dot at intersection = connected. Cross without dot = NOT connected.\n\n## Step 3: Read the Values\nComponents labeled with designators (R1, C2) and values (10kΩ, 100nF).\n\n## Step 4: Identify Current Flow\nConventional current: VCC → through circuit → ground. Trace with your finger.\n\n## Step 5: Recognize Common Patterns\n- **Voltage divider**: Two resistors in series\n- **RC filter**: Resistor + capacitor\n- **LED circuit**: LED + current-limiting resistor`,
+nx:['g4','g5'],sat:da(175),vat:da(168)},
+
+{id:'g3',title:'How to Use a Multimeter',did:'d1',sid:'d1b',lv:1,st:'verified',aid:'u2',ed:1,
+out:['Measure voltage, current, and resistance','Test continuity','Safely select correct measurement mode'],
+mat:['Digital multimeter','9V battery','Various resistors','Test leads'],
+safe:['Never measure resistance on a powered circuit','Never measure mains voltage without training','Always return to OFF after use'],
+cnt:`## Introduction\nA multimeter measures voltage, current, and resistance — the three fundamental electrical properties.\n\n## Step 1: Know Your Meter\nDisplay, selector dial, ports: COM (black), VΩmA (red), 10A (red for large current).\n\n## Step 2: Measure DC Voltage\n1. Set dial to DCV at range higher than expected\n2. Black to COM, red to VΩmA\n3. Touch probes across component (parallel)\n\n## Step 3: Measure Resistance\n1. Power off circuit first\n2. Set dial to Ω\n3. Touch probes across component\n\n## Step 4: Measure Current\n1. Set dial to DCA\n2. Break circuit, connect meter in series\n\n## Step 5: Test Continuity\n1. Set to continuity symbol\n2. Touch probes to both ends\n3. Beep = good connection`,
+nx:['g5'],sat:da(170),vat:da(162)},
+
+{id:'g4',title:'Build a Basic Transistor Switch',did:'d1',sid:'d1b',lv:2,st:'verified',aid:'u2',ed:1,
+out:['Use a BJT as an electronic switch','Calculate base resistor values','Control a high-current load with a low-current signal'],
+mat:['2N2222 NPN transistor','LED','330Ω resistor','1kΩ resistor','9V battery + clip','Breadboard'],
+safe:['Transistors can get hot if overloaded'],
+cnt:`## Introduction\nA transistor switch is the building block of all digital electronics — small current controls larger one.\n\n## Step 1: Understand the BJT\nNPN has Base, Collector, Emitter. Small base current → large collector current.\n\n## Step 2: Build the Circuit\n1. Place 2N2222 flat side facing you\n2. Emitter to Ground\n3. LED + 330Ω between 9V and Collector\n4. 1kΩ between Base and control signal\n\n## Step 3: Test\nPress button → LED ON. Release → LED OFF.\n\n## Step 4: Calculate Base Resistor\nI_base = I_collector / hFE = 20mA/100 = 0.2mA\nR_base = (9V - 0.7V)/0.2mA ≈ 41kΩ\nWe use 1kΩ for strong drive (saturated).`,
+nx:['g6','g7'],sat:da(150),vat:da(140)},
+
+{id:'g5',title:'Wire a DC Power Supply',did:'d1',sid:'d1b',lv:2,st:'verified',aid:'u5',ed:1,
+out:['Convert AC to stable DC','Size a filter capacitor','Build a regulated 5V supply'],
+mat:['9V AC transformer','4x 1N4007 diodes','1000µF capacitor','LM7805 regulator','0.1µF capacitor','Breadboard'],
+safe:['Mains voltage on transformer primary — NEVER work on live mains','Insulate all AC connections'],
+cnt:`## Introduction\nEvery electronics project needs power. Build a stable 5V DC supply.\n\n## Step 1: AC to Pulsating DC\nFour 1N4007 diodes in bridge configuration. Converts both AC halves to pulsating DC.\n\n## Step 2: Smooth with Capacitor\n1000µF electrolytic across DC output. Charges at peaks, discharges at valleys.\n\n## Step 3: Regulate with LM7805\nFeed smoothed DC into LM7805. Add 0.1µF on input and output for stability.\n\nOutput: rock-solid 5V ±0.2V.`,
+nx:['g7'],sat:da(140),vat:da(128)},
+
+{id:'g6',title:'Build a Logic Gate from Transistors',did:'d1',sid:'d1b',lv:3,st:'verified',aid:'u2',ed:1,
+out:['Construct NAND and NOR gates from transistors','Understand Boolean logic at hardware level'],
+mat:['6x 2N2222 transistors','Resistors and LEDs','Breadboard','5V supply'],
+safe:[],
+cnt:`## Introduction\nEvery computer operation reduces to logic gates. Build fundamental gates from discrete transistors.\n\n## Step 1: NAND Gate\nTwo NPN in series. Output LOW only when ALL inputs HIGH.\n\n## Step 2: NOR Gate\nTwo NPN in parallel. Output HIGH only when ALL inputs LOW.\n\n## Step 3: Verify Truth Tables\nNAND: 00→1, 01→1, 10→1, 11→0\nNOR: 00→1, 01→0, 10→0, 11→0\n\n## Step 4: Chain Gates\nTwo NAND gates with feedback = flip-flop — the basis of memory.`,
+nx:['g8'],sat:da(120),vat:da(108)},
+
+{id:'g7',title:'Build a Basic Audio Amplifier',did:'d1',sid:'d1c',lv:3,st:'under_review',aid:'u5',ed:1,
+out:['Amplify audio signals using transistors','Bias a transistor for linear amplification'],
+mat:['2N2222 transistor','Resistors and capacitors','8Ω speaker','3.5mm audio jack','Breadboard'],
+safe:['Keep volume low — amplified audio can damage hearing'],
+cnt:`## Introduction\nBuild a single-stage common-emitter amplifier to drive a small speaker.\n\n## Step 1: Bias the Transistor\nSet V_collector ≈ VCC/2 = 2.5V. Voltage divider on base, emitter resistor for stability.\n\n## Step 2: Add Coupling Capacitors\nInput cap blocks DC from source. Output cap blocks DC from speaker. Emitter bypass cap increases AC gain.\n\n## Step 3: Connect Speaker\n8Ω speaker through output coupling cap. Simple Class-A amplifier.\n\n## Expected Gain\nVoltage gain ≈ R_collector/R_emitter ≈ 10 (without bypass)`,
+nx:['g8'],sat:da(7),vat:null},
+
+{id:'g9',title:'How to Properly Hold and Use a Chef\'s Knife',did:'d2',sid:'d2b',lv:1,st:'verified',aid:'u3',ed:1,
+out:['Hold a chef\'s knife with proper grip','Perform the rocking cut technique'],
+mat:['8-inch chef\'s knife','Cutting board','Vegetables for practice'],
+safe:['Always cut away from your body','Keep knives sharp','Never catch a falling knife','Use the claw grip'],
+cnt:`## Introduction\nKnife skills are the foundation of all cooking.\n\n## Step 1: The Pinch Grip\nPinch the blade heel between thumb and index finger, then wrap remaining fingers around handle.\n\n## Step 2: The Claw Hand\nCurl fingertips inward. Knuckles act as guide. Knife blade rests against knuckles.\n\n## Step 3: The Rocking Cut\nKeep tip on board. Lift heel, push forward, bring down in rocking motion.\n\n## Practice\nStart slow with celery or carrots. Focus on consistency, not speed.`,
+nx:['g10','g11'],sat:da(160),vat:da(150)},
+
+{id:'g10',title:'Understanding Heat: Boiling, Simmering, and Searing',did:'d2',sid:'d2b',lv:1,st:'verified',aid:'u3',ed:1,
+out:['Distinguish between heat levels','Apply correct technique to different foods'],
+mat:['Stove','Pots and pans','Thermometer','Water and oil'],
+safe:['Oil at searing temperatures can cause severe burns','Never add water to hot oil'],
+cnt:`## Introduction\nHeat control is the most important cooking skill.\n\n## Boiling (100°C)\nLarge, vigorous bubbles. Pasta, blanching, eggs.\n\n## Simmering (85-95°C)\nGentle, occasional bubbles. Soups, stews, braises.\n\n## Searing (200-260°C)\nMaillard reaction — browning creates flavor. Steaks, stir-fries.\n\n## The Visual Test\n- Boiling: can't see bottom through bubbles\n- Simmering: can see bottom between bubbles\n- Searing: water skitters in beads (Leidenfrost)`,
+nx:['g11'],sat:da(155),vat:da(145)},
+
+{id:'g11',title:'Make a Classic French Roux',did:'d2',sid:'d2b',lv:2,st:'verified',aid:'u3',ed:1,
+out:['Make white, blond, and brown roux','Use roux to thicken sauces'],
+mat:['Butter (unsalted)','All-purpose flour','Whisk','Heavy-bottomed saucepan'],
+safe:['Brown roux reaches 150°C+ — can cause serious burns'],
+cnt:`## Introduction\nEqual parts fat and flour, cooked together — foundation of French sauces.\n\n## Step 1: Measure Equal Parts by Weight\n50g butter + 50g flour for ~500ml liquid.\n\n## Step 2: Melt and Add Flour\nMelt butter, add flour all at once, whisk to paste.\n\n## Step 3: Cook to Desired Stage\n- White (2 min): pale, raw flour smell\n- Blond (5 min): golden, nutty\n- Brown (15-20 min): deep brown, strong nutty scent\n\n## Step 4: Add Liquid Gradually\nCold/room-temp liquid into hot roux. Never hot into hot.`,
+nx:[],sat:da(130),vat:da(118)},
+
+{id:'g12',title:'How to Safely Use Power Tools',did:'d3',sid:'d3a',lv:1,st:'verified',aid:'u4',ed:1,
+out:['Operate circular saw, drill, and sander safely','Choose correct blade/bit for material'],
+mat:['Circular saw','Power drill','Orbital sander','Safety glasses','Hearing protection','Clamps'],
+safe:['ALWAYS wear safety glasses','Never remove blade guards','Disconnect power before changing blades','Keep fingers 6+ inches from blade'],
+cnt:`## Introduction\nPower tools demand respect. Three common tools and universal safety principles.\n\n## Universal Safety Rules\n1. Safety glasses, hearing protection, dust protection\n2. Read the manual\n3. Clean, well-lit work area\n4. Clamp your workpiece\n5. Disconnect when changing accessories\n\n## Circular Saw\nSet blade 5mm deeper than material. Full speed before cutting.\n\n## Power Drill\nCorrect bit for material. Use clutch to avoid stripping.\n\n## Orbital Sander\nMove with grain. Don't press. Progress through grits: 80→120→220.`,
+nx:['g13'],sat:da(100),vat:da(88)},
+
+{id:'g13',title:'Frame a Basic Interior Wall',did:'d3',sid:'d3a',lv:2,st:'verified',aid:'u4',ed:1,
+out:['Lay out and cut framing members','Assemble and plumb a stud wall'],
+mat:['2x4 lumber','16d nails','Framing hammer','4ft level','Tape measure','Circular saw'],
+safe:['Wear safety glasses when nailing','Two people minimum for lifting walls'],
+cnt:`## Introduction\nWall framing is the skeleton of any structure.\n\n## Step 1: Cut the Plates\nTwo top plates, one bottom plate. Mark stud positions every 16\" on center.\n\n## Step 2: Cut Studs\n92-5/8\" for standard 8ft wall.\n\n## Step 3: Assemble on Floor\nLay plates flat, place studs at marks. Two 16d nails per connection.\n\n## Step 4: Stand and Secure\nTilt up, plumb with level, nail bottom plate, brace top.`,
+nx:[],sat:da(90),vat:da(75)}
+];
+this.d.prereqs=[
+{id:'p1',gid:'g4',rid:'g1',cg:1,ct:'required'},{id:'p2',gid:'g4',rid:'g2',cg:2,ct:'required'},
+{id:'p3',gid:'g5',rid:'g3',cg:1,ct:'required'},{id:'p4',gid:'g5',rid:'g2',cg:2,ct:'required'},
+{id:'p5',gid:'g6',rid:'g4',cg:1,ct:'required'},{id:'p6',gid:'g7',rid:'g5',cg:1,ct:'required'},
+{id:'p7',gid:'g7',rid:'g4',cg:2,ct:'required'},{id:'p8',gid:'g8',rid:'g6',cg:1,ct:'required'},
+{id:'p9',gid:'g11',rid:'g9',cg:1,ct:'required'},{id:'p10',gid:'g11',rid:'g10',cg:2,ct:'required'},
+{id:'p11',gid:'g13',rid:'g12',cg:1,ct:'required'}
+];
+this.d.certs=[
+{id:'c1',uid:'u2',did:'d1',ml:5,at:da(300)},{id:'c2',uid:'u3',did:'d2',ml:3,at:da(250)},
+{id:'c3',uid:'u4',did:'d3',ml:3,at:da(200)},{id:'c4',uid:'u6',did:'d4',ml:4,at:da(280)}
+];
+this.d.verifs=[{id:'v1',gid:'g7',st:'active',oc:3,vids:['u2','u6','u4'],at:da(5)}];
+this.d.votes=[
+{id:'vt1',rid:'v1',vid:'u2',vote:'approve',fb:'Excellent coverage. Mention that Class-A amplifiers are inefficient.',at:da(3),rev:false},
+{id:'vt2',rid:'v1',vid:'u6',vote:null,fb:null,at:null,rev:false},
+{id:'vt3',rid:'v1',vid:'u4',vote:null,fb:null,at:null,rev:false}
+];
+this.d.listings=[
+{id:'l1',gid:'g1',name:'Hakko FX-888D Soldering Station',adv:'Hakko',url:'#',price:'$99',cat:'Soldering Iron',ok:true},
+{id:'l2',gid:'g1',name:'Weller WLC100 Soldering Iron',adv:'Weller',url:'#',price:'$44',cat:'Soldering Iron',ok:true},
+{id:'l3',gid:'g1',name:'Kester 44 Rosin Core Solder',adv:'Kester',url:'#',price:'$12',cat:'Solder',ok:true},
+{id:'l4',gid:'g4',name:'Elegoo 2N2222 Transistor Kit',adv:'Elegoo',url:'#',price:'$8',cat:'Transistors',ok:true},
+{id:'l5',gid:'g12',name:'DeWalt DWE575SB Circular Saw',adv:'DeWalt',url:'#',price:'$129',cat:'Power Saw',ok:true}
+];
+this.d.ratings=[
+{id:'r1',lid:'l1',uid:'u5',rat:5,rev:'Best station for the price. Every joint came out perfect.',gid:'g1',at:da(30)},
+{id:'r2',lid:'l1',uid:'u7',rat:4,rev:'Great iron, display takes getting used to.',gid:'g1',at:da(15)},
+{id:'r3',lid:'l2',uid:'u7',rat:3,rev:'Decent for beginners, limited temp control.',gid:'g1',at:da(20)},
+{id:'r4',lid:'l5',uid:'u4',rat:5,rev:'Lightweight, powerful, blade brake is a lifesaver.',gid:'g12',at:da(40)}
+];
+this.save()}
+// Helpers
+gu(id){return this.d.users.find(u=>u.id===id)}
+gg(id){return this.d.guides.find(g=>g.id===id)}
+gd(id){return this.d.domains.find(d=>d.id===id)}
+gp(gid){return this.d.prereqs.filter(p=>p.gid===gid)}
+gReq(gid){return this.d.prereqs.filter(p=>p.rid===gid).map(p=>this.gg(p.gid)).filter(Boolean)}
+gl(gid){return this.d.listings.filter(l=>l.gid===gid&&l.ok)}
+gr(lid){return this.d.ratings.filter(r=>r.lid===lid)}
+avgR(lid){const r=this.gr(lid);return r.length?r.reduce((s,x)=>s+x.rat,0)/r.length:0}
+lScore(lid){const r=this.gr(lid);const a=this.avgR(lid);const n=Math.min(r.length/C.minRev,1);return(a*C.adRW)+(n*C.adRVW*5)}
+stats(){return{tg:this.d.guides.filter(g=>g.st==='verified').length,td:this.d.domains.filter(d=>!d.pid).length,tv:this.d.users.filter(u=>['verifier','senior_verifier'].includes(u.role)).length,tu:this.d.users.length}}
+wcc(gid,rid,v=new Set()){if(gid===rid)return true;if(v.has(rid))return false;v.add(rid);const ds=this.d.prereqs.filter(p=>p.rid===rid);for(const p of ds){if(this.wcc(gid,p.gid,v))return true}return false}
 }
+const db=new DB();
+
+// ===================== AUTH =====================
+const A={cu:null,
+init(){const s=localStorage.getItem('blue_auth');if(s)this.cu=JSON.parse(s);this.rui()},
+login(u,p){const x=db.d.users.find(x=>x.username===u&&x.pw===p);if(!x)return false;this.cu=x;localStorage.setItem('blue_auth',JSON.stringify(x));this.rui();return true},
+reg(u,e,p){if(db.d.users.find(x=>x.username===u))return{error:'Username taken'};if(db.d.users.find(x=>x.email===e))return{error:'Email registered'};const x={id:uid(),username:u,email:e,pw:p,role:'registered',rep:0,at:now()};db.d.users.push(x);db.save();this.cu=x;localStorage.setItem('blue_auth',JSON.stringify(x));this.rui();return{success:true}},
+out(){this.cu=null;localStorage.removeItem('blue_auth');this.rui()},
+iv(){return['verifier','senior_verifier','admin'].includes(this.cu?.role)},
+rui(){const a=document.getElementById('aa');if(this.cu){a.innerHTML=`<div class="flex items-center gap-2"><a href="#/profile" class="flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs fd font-medium" style="color:var(--fgm)"><div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style="background:var(--acc)">${this.cu.username[0].toUpperCase()}</div><span class="hidden sm:inline">${esc(this.cu.username)}</span></a><button onclick="A.out();nav(location.hash||'#/')" class="text-[10px] px-1.5 py-0.5 rounded" style="color:var(--fgm)">Out</button></div>`}else{a.innerHTML=`<button onclick="showLogin()" class="text-xs fd font-medium px-3 py-1.5 rounded-lg" style="background:var(--acc);color:white">Sign In</button>`}}
+};
+function showLogin(){showModal(`<div class="p-5"><h2 class="fd font-bold text-lg mb-3" style="color:var(--fg)">Welcome to B.L.U.E.</h2><div class="flex gap-2 mb-3"><button onclick="document.getElementById('lt').classList.remove('hidden');document.getElementById('rt').classList.add('hidden')" class="px-3 py-1.5 rounded text-xs fd font-semibold" style="color:var(--acc)">Sign In</button><button onclick="document.getElementById('rt').classList.remove('hidden');document.getElementById('lt').classList.add('hidden')" class="px-3 py-1.5 rounded text-xs fd font-semibold" style="color:var(--fgm)">Register</button></div><div id="lt"><div class="space-y-2"><input id="lu" type="text" placeholder="Username" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"><input id="lp" type="password" placeholder="Password" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"><button onclick="doLogin()" class="w-full py-2 rounded-lg text-sm fd font-semibold text-white" style="background:var(--acc)">Sign In</button><p class="text-[10px]" style="color:var(--fgm)">Demo: admin/admin, dr.volt/pass, chef.maria/pass</p></div></div><div id="rt" class="hidden"><div class="space-y-2"><input id="ru" type="text" placeholder="Username" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"><input id="re" type="email" placeholder="Email" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"><input id="rp" type="password" placeholder="Password" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"><button onclick="doReg()" class="w-full py-2 rounded-lg text-sm fd font-semibold text-white" style="background:var(--acc)">Create Account</button></div></div></div>`)}
+function doLogin(){const u=document.getElementById('lu').value,p=document.getElementById('lp').value;if(A.login(u,p)){closeModal();toast('Welcome back, '+esc(u)+'!','success');nav(location.hash||'#/')}else toast('Invalid credentials','error')}
+function doReg(){const u=document.getElementById('ru').value,e=document.getElementById('re').value,p=document.getElementById('rp').value;if(!u||!e||!p){toast('All fields required','warning');return}const r=A.reg(u,e,p);if(r.error){toast(r.error,'error');return}closeModal();toast('Account created!','success');nav(location.hash||'#/')}
+
+// ===================== THEME =====================
+let dark=true;
+function toggleTheme(){dark=!dark;document.body.classList.toggle('lm',!dark);document.getElementById('tt').innerHTML=dark?'<i class="fas fa-sun text-sm"></i>':'<i class="fas fa-moon text-sm"></i>'}
+
+// ===================== ROUTER =====================
+function nav(h){location.hash=h}
+function getR(){return(location.hash||'#/').slice(1)}
+function renderR(){
+const r=getR(),ps=r.split('/').filter(Boolean),pg=ps[0]||'home',id=ps[1];
+document.querySelectorAll('.nl,.mn').forEach(e=>{e.style.color=e.dataset.p===pg?'var(--acc)':'var(--fgm)'});
+const mc=document.getElementById('mc');mc.style.animation='none';mc.offsetHeight;mc.style.animation='';
+switch(pg){
+case'home':mc.innerHTML=pHome();initHC();break;
+case'browse':mc.innerHTML=pBrowse();break;
+case'guide':mc.innerHTML=pGuide(id);break;
+case'discover':mc.innerHTML=pDiscover();break;
+case'create':mc.innerHTML=pCreate();break;
+case'verify':mc.innerHTML=pVerify();break;
+case'graph':mc.innerHTML=pGraph();initGC();break;
+case'profile':mc.innerHTML=pProfile();break;
+default:mc.innerHTML=pHome();initHC();
+}
+window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',renderR);
+
+// ===================== GUIDE CARD =====================
+function gCard(g){const d=db.gd(g.did),pr=db.gp(g.id),sc=g.st==='verified'?'sv':g.st==='under_review'?'sr':'sd',sl=g.st==='under_review'?'Under Review':g.st.charAt(0).toUpperCase()+g.st.slice(1);
+return `<a href="#/guide/${g.id}" class="gc p-4 rounded-xl block" style="background:var(--card);border:1px solid var(--brd)"><div class="flex items-start justify-between mb-2"><span class="lb l${cl(g.lv,1,5)}" style="width:32px;height:32px;font-size:12px">${g.lv}</span><span class="text-[10px] px-2 py-0.5 rounded-full ${sc}">${sl}</span></div><h3 class="fd font-bold text-sm mb-1 leading-snug" style="color:var(--fg)">${esc(g.title)}</h3><div class="flex items-center gap-2 text-[10px]" style="color:var(--fgm)"><span style="color:${d?.color||'var(--acc)'}">${esc(d?.name||'')}</span><span>&middot;</span><span>${pr.length} prereq${pr.length!==1?'s':''}</span></div>${g.out?`<p class="text-[11px] mt-2 leading-relaxed" style="color:var(--fgm)">${esc(g.out[0]||'')}</p>`:''}</a>`}
+
+// ===================== HOME PAGE =====================
+function pHome(){const s=db.stats(),f=db.d.guides.filter(g=>g.st==='verified').slice(0,6),dm=db.d.domains.filter(d=>!d.pid);
+return `<section class="relative overflow-hidden" style="min-height:480px"><canvas id="hc"></canvas><div class="relative z-10 max-w-7xl mx-auto px-4 py-16 md:py-24"><div class="max-w-3xl"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] fd font-medium mb-5" style="background:rgba(8,145,178,.12);color:var(--acc);border:1px solid rgba(8,145,178,.25)"><span class="w-1.5 h-1.5 rounded-full pd" style="background:var(--acc)"></span>Open Knowledge Infrastructure</div><h1 class="fd font-black ht leading-tight mb-5" style="font-size:clamp(2.2rem,5.5vw,4rem);color:var(--fg)">Learn to do <span style="color:var(--acc)">anything</span>, step by step.</h1><p class="text-base md:text-lg mb-7 leading-relaxed max-w-2xl" style="color:var(--fgm)">B.L.U.E. is a free, verified, structured library of human knowledge. From soldering irons to CPU design, every guide connects to what you know — and unlocks what comes next.</p><div class="flex flex-wrap gap-3"><a href="#/browse" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg fd font-semibold text-white text-sm" style="background:var(--acc)"><i class="fas fa-compass"></i>Explore Guides</a><a href="#/discover" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg fd font-semibold text-sm" style="border:1px solid var(--brd);color:var(--fg)"><i class="fas fa-globe"></i>Discover Resources</a><a href="#/create" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg fd font-semibold text-sm" style="border:1px solid var(--brd);color:var(--fg)"><i class="fas fa-pen"></i>Contribute</a></div></div></div><div class="absolute bottom-0 left-0 right-0 h-24" style="background:linear-gradient(to top,var(--bg),transparent)"></div></section>
+
+<section class="border-y" style="background:var(--bg2);border-color:var(--brd)"><div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-4">${[{i:'fa-book-open',v:s.tg,l:'Verified Guides'},{i:'fa-layer-group',v:s.td,l:'Knowledge Domains'},{i:'fa-shield-halved',v:s.tv,l:'Expert Verifiers'},{i:'fa-users',v:s.tu,l:'Contributors'}].map(x=>`<div class="text-center"><i class="fas ${x.i} text-base mb-1" style="color:var(--acc)"></i><div class="fd font-extrabold text-2xl" style="color:var(--fg)">${x.v}</div><div class="text-xs mt-0.5" style="color:var(--fgm)">${x.l}</div></div>`).join('')}</div></section>
+
+<section class="py-14"><div class="max-w-7xl mx-auto px-4"><h2 class="fd font-extrabold text-2xl md:text-3xl text-center mb-3" style="color:var(--fg)">How B.L.U.E. Works</h2><p class="text-center mb-10 max-w-xl mx-auto text-sm" style="color:var(--fgm)">Three principles that make knowledge trustworthy, connected, and free.</p><div class="grid md:grid-cols-3 gap-6">${[{i:'fa-sitemap',t:'Structured Hierarchy',d:'Every guide sits at a specific level in a directed acyclic graph. You always know what to learn first and what it unlocks next.'},{i:'fa-user-shield',t:'Expert Verification',d:'Guides reviewed by qualified, tested Verifiers through blind voting. No popularity contests — only domain expertise counts.'},{i:'fa-globe',t:'Connected Resources',d:'Every guide links to real books, papers, and articles from Wikipedia, Open Library, Semantic Scholar, and more — all free and open.'}].map(f=>`<div class="p-5 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3" style="background:rgba(8,145,178,.1)"><i class="fas ${f.i}" style="color:var(--acc)"></i></div><h3 class="fd font-bold text-base mb-1.5" style="color:var(--fg)">${f.t}</h3><p class="text-xs leading-relaxed" style="color:var(--fgm)">${f.d}</p></div>`).join('')}</div></div></section>
+
+<section class="py-14" style="background:var(--bg2)"><div class="max-w-7xl mx-auto px-4"><div class="flex items-center justify-between mb-6"><h2 class="fd font-extrabold text-xl md:text-2xl" style="color:var(--fg)">Featured Guides</h2><a href="#/browse" class="text-xs fd font-medium flex items-center gap-1" style="color:var(--acc)">View all <i class="fas fa-arrow-right text-[10px]"></i></a></div><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">${f.map(g=>gCard(g)).join('')}</div></div></section>
+
+<section class="py-14"><div class="max-w-7xl mx-auto px-4"><h2 class="fd font-extrabold text-xl md:text-2xl mb-6" style="color:var(--fg)">Knowledge Domains</h2><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">${dm.map(d=>{const gs=db.d.guides.filter(g=>g.did===d.id&&g.st==='verified');const ls=[...new Set(gs.map(g=>g.lv))].sort();return `<a href="#/browse?domain=${d.id}" class="gc p-5 rounded-xl block" style="background:var(--card);border:1px solid var(--brd)"><div class="w-9 h-9 rounded-lg flex items-center justify-center mb-2" style="background:${d.color}18"><i class="fas ${d.icon}" style="color:${d.color}"></i></div><h3 class="fd font-bold text-base mb-0.5" style="color:var(--fg)">${esc(d.name)}</h3><p class="text-xs mb-2" style="color:var(--fgm)">${gs.length} verified guides</p><div class="flex gap-1">${ls.map(l=>`<span class="lb l${l}" style="width:20px;height:20px;font-size:9px">${l}</span>`).join('')}</div></a>`}).join('')}</div></div></section>
+
+<section class="py-14" style="background:var(--bg2)"><div class="max-w-3xl mx-auto px-4 text-center"><h2 class="fd font-extrabold text-xl md:text-2xl mb-3" style="color:var(--fg)">Knowledge grows when shared.</h2><p class="mb-6 text-sm" style="color:var(--fgm)">Whether you're a world-class engineer or a passionate hobbyist, your expertise can guide someone from zero to mastery.</p><div class="flex flex-wrap justify-center gap-3"><a href="#/create" class="px-5 py-2.5 rounded-lg fd font-semibold text-white text-sm" style="background:var(--acc)">Write a Guide</a><a href="#/verify" class="px-5 py-2.5 rounded-lg fd font-semibold text-sm" style="border:1px solid var(--brd);color:var(--fg)">Become a Verifier</a></div></div></section>
+
+<footer class="py-6 border-t" style="border-color:var(--brd)"><div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded flex items-center justify-center fd font-black text-white text-[10px]" style="background:var(--acc)">B</div><span class="fd font-semibold text-xs" style="color:var(--fg)">B.L.U.E.</span><span class="text-[10px]" style="color:var(--fgm)">— Broadlearning Universal Education</span></div><p class="text-[10px]" style="color:var(--fgm)">Free, verified, structured knowledge. Powered by Wikipedia, Open Library, Semantic Scholar, DOAJ, Crossref.</p></div></footer>`}
+
+// ===================== BROWSE PAGE =====================
+function pBrowse(){const dm=db.d.domains.filter(d=>!d.pid);const up=new URLSearchParams(location.hash.split('?')[1]||'');const sd=up.get('domain')||'all';const sl=parseInt(up.get('level'))||0;const ss=up.get('status')||'verified';
+let gs=db.d.guides;if(sd!=='all'){const ids=[sd,...db.d.domains.filter(d=>d.pid===sd).map(d=>d.id)];gs=gs.filter(g=>ids.includes(g.did))}if(sl>0)gs=gs.filter(g=>g.lv===sl);if(ss!=='all')gs=gs.filter(g=>g.st===ss);
+return `<div class="max-w-7xl mx-auto px-4 py-6"><div class="flex items-center justify-between mb-6"><h1 class="fd font-extrabold text-xl md:text-2xl" style="color:var(--fg)">Browse Guides</h1><input id="bs" type="text" placeholder="Search..." class="px-3 py-1.5 rounded-lg text-xs w-40" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)" oninput="filtB()"></div><div class="flex flex-col lg:flex-row gap-5"><div class="lg:w-56 flex-shrink-0"><div class="p-3 rounded-xl sticky top-16" style="background:var(--card);border:1px solid var(--brd)"><h3 class="fd font-semibold text-xs mb-2" style="color:var(--fg)">Domain</h3><div class="space-y-0.5 mb-3"><label class="flex items-center gap-2 text-xs cursor-pointer" style="color:var(--fgm)"><input type="radio" name="dm" value="all" ${sd==='all'?'checked':''} onchange="upB()">All</label>${dm.map(d=>`<label class="flex items-center gap-2 text-xs cursor-pointer" style="color:var(--fgm)"><input type="radio" name="dm" value="${d.id}" ${sd===d.id?'checked':''} onchange="upB()">${esc(d.name)}</label>`).join('')}</div><h3 class="fd font-semibold text-xs mb-2" style="color:var(--fg)">Level</h3><div class="space-y-0.5 mb-3"><label class="flex items-center gap-2 text-xs cursor-pointer" style="color:var(--fgm)"><input type="radio" name="lv" value="0" ${sl===0?'checked':''} onchange="upB()">All</label>${[1,2,3,4,5].map(l=>`<label class="flex items-center gap-2 text-xs cursor-pointer" style="color:var(--fgm)"><input type="radio" name="lv" value="${l}" ${sl===l?'checked':''} onchange="upB()">Level ${l}</label>`).join('')}</div><h3 class="fd font-semibold text-xs mb-2" style="color:var(--fg)">Status</h3><div class="space-y-0.5"><label class="flex items-center gap-2 text-xs cursor-pointer" style="color:var(--fgm)"><input type="radio" name="st" value="verified" ${ss==='verified'?'checked':''} onchange="upB()">Verified</label><label class="flex items-center gap-2 text-xs cursor-pointer" style="color:var(--fgm)"><input type="radio" name="st" value="under_review" ${ss==='under_review'?'checked':''} onchange="upB()">Under Review</label><label class="flex items-center gap-2 text-xs cursor-pointer" style="color:var(--fgm)"><input type="radio" name="st" value="all" ${ss==='all'?'checked':''} onchange="upB()">All</label></div></div></div><div class="flex-1"><p class="text-xs mb-3" style="color:var(--fgm)">${gs.length} guide${gs.length!==1?'s':''}</p><div id="br" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">${gs.map(g=>gCard(g)).join('')}</div>${gs.length===0?'<div class="text-center py-12" style="color:var(--fgm)"><i class="fas fa-search text-2xl mb-2 block" style="color:var(--brd)"></i><p class="text-sm">No guides match.</p></div>':''}</div></div></div>`}
+function upB(){const d=document.querySelector('input[name=dm]:checked')?.value||'all',l=document.querySelector('input[name=lv]:checked')?.value||'0',s=document.querySelector('input[name=st]:checked')?.value||'verified';nav('#/browse?domain='+d+'&level='+l+'&status='+s)}
+function filtB(){const q=document.getElementById('bs')?.value.toLowerCase()||'';document.querySelectorAll('#br .gc').forEach(c=>{c.style.display=c.textContent.toLowerCase().includes(q)?'':'none'})}
+
+// ===================== DISCOVER RESOURCES PAGE =====================
+function pDiscover(){
+const srcInfo = [
+  {id:'wikipedia',name:'Wikipedia',icon:'fa-brands fa-wikipedia-w',color:'#636466',desc:'Encyclopedia articles'},
+  {id:'openlibrary',name:'Open Library',icon:'fa-solid fa-book',color:'#D97706',desc:'Free books & textbooks'},
+  {id:'semanticscholar',name:'Semantic Scholar',icon:'fa-solid fa-graduation-cap',color:'#7C3AED',desc:'Research papers'},
+  {id:'doaj',name:'DOAJ',icon:'fa-solid fa-file-lines',color:'#0891B2',desc:'Open access articles'},
+  {id:'crossref',name:'Crossref',icon:'fa-solid fa-newspaper',color:'#EC4899',desc:'Academic papers (DOI)'},
+];
+
+return `<div class="max-w-5xl mx-auto px-4 py-6">
+<div class="mb-8">
+  <h1 class="fd font-extrabold text-2xl md:text-3xl mb-2" style="color:var(--fg)">Discover Learning Resources</h1>
+  <p class="text-sm" style="color:var(--fgm)">Search across free, open knowledge sources — Wikipedia, Open Library, Semantic Scholar, DOAJ, and Crossref. No API keys needed. All data is free and open.</p>
+</div>
+
+<!-- Search box -->
+<div class="p-5 rounded-xl mb-6" style="background:var(--card);border:1px solid var(--brd)">
+  <div class="flex gap-2 mb-4">
+    <input id="disc-q" type="text" placeholder="Search any topic... e.g. 'transistor amplifier', 'sourdough bread', 'structural engineering'" class="flex-1 px-4 py-2.5 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)" onkeydown="if(event.key==='Enter')doSearch()">
+    <button onclick="doSearch()" class="px-5 py-2.5 rounded-lg fd font-semibold text-white text-sm flex items-center gap-2" style="background:var(--acc)"><i class="fas fa-search"></i>Search</button>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    ${srcInfo.map(s=>`<label class="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full cursor-pointer" style="background:var(--bg3);color:var(--fgm);border:1px solid var(--brd)"><input type="checkbox" class="src-check" value="${s.id}" checked style="accent-color:${s.color}"><i class="${s.icon}" style="color:${s.color}"></i>${s.name}</label>`).join('')}
+  </div>
+</div>
+
+<!-- Quick search suggestions -->
+<div class="flex flex-wrap gap-2 mb-6">
+  <span class="text-xs fd font-medium" style="color:var(--fgm)">Try:</span>
+  ${['Soldering electronics','Circuit design','Cooking techniques','Structural framing','First aid CPR','PWM motor control','Bread baking','Transistor biasing'].map(q=>`<button onclick="document.getElementById('disc-q').value='${q}';doSearch()" class="text-xs px-3 py-1 rounded-full fd font-medium" style="background:var(--bg3);color:var(--fgm);border:1px solid var(--brd)">${q}</button>`).join('')}
+</div>
+
+<!-- Results -->
+<div id="disc-results"></div>
+
+<!-- Source info cards -->
+<div id="disc-sources" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+  ${srcInfo.map(s=>`<div class="p-4 rounded-xl rc" style="background:var(--card);border:1px solid var(--brd)">
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:${s.color}18"><i class="${s.icon}" style="color:${s.color}"></i></div>
+      <div><h3 class="fd font-bold text-sm" style="color:var(--fg)">${s.name}</h3><p class="text-[10px]" style="color:var(--fgm)">${s.desc}</p></div>
+    </div>
+    <p class="text-[10px]" style="color:var(--fgm)">${s.id==='wikipedia'?'Free encyclopedia with open API. No key required. Content under CC-BY-SA.':s.id==='openlibrary'?'Over 2M free books searchable via open API. Covers, authors, and full text. No key required.':s.id==='semanticscholar'?'AI-powered academic search from Allen Institute. 200M+ papers. Free API, no key. Citation counts and open access PDFs.':s.id==='doaj'?'Directory of Open Access Journals. Peer-reviewed scholarly articles. Free API, no key. All content open access.':'DOI metadata for 130M+ academic works. Free API, no key. Links to full text where available.'}</p>
+  </div>`).join('')}
+</div>
+</div>`}
+
+async function doSearch(){
+  const q=document.getElementById('disc-q')?.value?.trim();
+  if(!q){toast('Enter a search term','warning');return}
+  const srcs=[...document.querySelectorAll('.src-check:checked')].map(c=>c.value);
+  if(!srcs.length){toast('Select at least one source','warning');return}
+
+  const rc=document.getElementById('disc-results');
+  const sc=document.getElementById('disc-sources');
+  if(sc)sc.style.display='none';
+
+  // Show loading skeleton
+  rc.innerHTML=`<div class="space-y-4">${srcs.map(s=>`<div class="rounded-xl p-5" style="background:var(--card);border:1px solid var(--brd)"><div class="flex items-center gap-2 mb-3"><div class="w-4 h-4 rounded skel"></div><div class="w-32 h-4 rounded skel"></div><div class="ml-auto w-16 h-4 rounded skel"></div></div><div class="space-y-2"><div class="w-full h-4 rounded skel"></div><div class="w-3/4 h-4 rounded skel"></div><div class="w-5/6 h-4 rounded skel"></div></div></div>`).join('')}</div>`;
+
+  try {
+    const results = await API.searchAll(q, srcs);
+    renderSearchResults(results, q);
+  } catch(e) {
+    rc.innerHTML=`<div class="text-center py-10"><i class="fas fa-exclamation-triangle text-2xl mb-2" style="color:var(--err)"></i><p class="text-sm" style="color:var(--fgm)">Search failed. Please try again.</p></div>`;
+  }
+}
+
+function renderSearchResults(results, query){
+  const rc=document.getElementById('disc-results');
+  const srcMeta={
+    wikipedia:{name:'Wikipedia',icon:'fa-brands fa-wikipedia-w',color:'#636466'},
+    openlibrary:{name:'Open Library',icon:'fa-solid fa-book',color:'#D97706'},
+    semanticscholar:{name:'Semantic Scholar',icon:'fa-solid fa-graduation-cap',color:'#7C3AED'},
+    doaj:{name:'DOAJ',icon:'fa-solid fa-file-lines',color:'#0891B2'},
+    crossref:{name:'Crossref',icon:'fa-solid fa-newspaper',color:'#EC4899'}
+  };
+
+  let totalResults = 0;
+  Object.values(results).forEach(r=>totalResults+=r.length);
+
+  let html = `<div class="flex items-center justify-between mb-4">
+    <p class="text-xs" style="color:var(--fgm)">Found ${totalResults} resources for "<strong style="color:var(--fg)">${esc(query)}</strong>"</p>
+    <button onclick="document.getElementById('disc-sources').style.display='';document.getElementById('disc-results').innerHTML=''" class="text-xs fd font-medium" style="color:var(--acc)">New Search</button>
+  </div>`;
+
+  for (const [source, items] of Object.entries(results)) {
+    const m = srcMeta[source];
+    if (!m) continue;
+
+    html += `<div class="mb-5">
+      <div class="flex items-center gap-2 mb-3"><i class="${m.icon}" style="color:${m.color}"></i><h2 class="fd font-bold text-sm" style="color:var(--fg)">${m.name}</h2><span class="text-[10px] px-2 py-0.5 rounded-full" style="background:var(--bg3);color:var(--fgm)">${items.length} results</span></div>`;
+
+    if (items.length === 0) {
+      html += `<p class="text-xs italic" style="color:var(--fgm)">No results found in ${m.name}.</p>`;
+    } else {
+      html += `<div class="space-y-2">`;
+      items.forEach(item => {
+        html += `<a href="${item.url}" target="_blank" rel="noopener" class="block p-3 rounded-lg rc" style="background:var(--card);border:1px solid var(--brd)">
+          <div class="flex gap-3">
+            ${item.cover?`<img src="${item.cover}" alt="" class="w-12 h-16 object-cover rounded flex-shrink-0" onerror="this.style.display='none'">`:''}
+            <div class="min-w-0 flex-1">
+              <h3 class="fd font-semibold text-sm leading-snug mb-0.5" style="color:var(--fg)">${esc(item.title)}</h3>
+              <p class="text-[11px] leading-relaxed mb-1" style="color:var(--fgm)">${esc(item.snippet||'')}</p>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-[10px] px-1.5 py-0.5 rounded" style="background:${m.color}18;color:${m.color}">${item.type||m.name}</span>
+                ${item.year?`<span class="text-[10px]" style="color:var(--fgm)">${item.year}</span>`:''}
+                ${item.citations!==undefined?`<span class="text-[10px]" style="color:var(--fgm)"><i class="fas fa-quote-left text-[8px]"></i> ${item.citations} citations</span>`:''}
+                ${item.pdf?`<span class="text-[10px]" style="color:var(--ok)"><i class="fas fa-file-pdf"></i> Open PDF</span>`:''}
+              </div>
+            </div>
+            <i class="fas fa-external-link-alt text-[10px] flex-shrink-0 mt-1" style="color:var(--fgm)"></i>
+          </div>
+        </a>`;
+      });
+      html += `</div>`;
+    }
+    html += `</div>`;
+  }
+
+  rc.innerHTML = html;
+}
+
+// ===================== GUIDE PAGE =====================
+function pGuide(id){const g=db.gg(id);if(!g)return`<div class="max-w-7xl mx-auto px-4 py-16 text-center"><h1 class="fd font-bold text-xl mb-3" style="color:var(--fg)">Guide Not Found</h1><a href="#/browse" class="text-xs" style="color:var(--acc)">Back to Browse</a></div>`;
+const dm=db.gd(g.did),sd=db.gd(g.sid),au=db.gu(g.aid),pr=db.gp(g.id),pg=pr.map(p=>db.gg(p.rid)).filter(Boolean),nx=(g.nx||[]).map(n=>db.gg(n)).filter(Boolean),ls=db.gl(g.id),sls=[...ls].sort((a,b)=>db.lScore(b.id)-db.lScore(a.id)),sc=g.st==='verified'?'sv':g.st==='under_review'?'sr':'sd';
+
+function rc(md){if(!md)return'';return md.replace(/## (.+)/g,'<h2>$1</h2>').replace(/### (.+)/g,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`(.+?)`/g,'<code>$1</code>').replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>').replace(/<div class="wb">(.+?)<\/div>/gs,'<div class="wb">$1</div>').replace(/<div class="tb">(.+?)<\/div>/gs,'<div class="tb">$1</div>').replace(/^- (.+)$/gm,'<li>$1</li>').replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>')}
+
+return `<div class="max-w-7xl mx-auto px-4 py-6"><nav class="flex items-center gap-2 text-xs mb-5" style="color:var(--fgm)"><a href="#/browse" style="color:var(--acc)">Browse</a><i class="fas fa-chevron-right text-[8px]"></i><a href="#/browse?domain=${g.did}" style="color:var(--acc)">${esc(dm?.name||'')}</a>${sd?`<i class="fas fa-chevron-right text-[8px]"></i><span>${esc(sd.name)}</span>`:''}</nav><div class="flex flex-col lg:flex-row gap-6"><article class="flex-1 min-w-0"><div class="mb-6"><div class="flex items-start gap-3 mb-3"><span class="lb l${cl(g.lv,1,5)} flex-shrink-0" style="width:44px;height:44px;font-size:16px">${g.lv}</span><div><h1 class="fd font-extrabold text-xl md:text-2xl leading-tight" style="color:var(--fg)">${esc(g.title)}</h1><div class="flex flex-wrap items-center gap-2 mt-1.5 text-xs" style="color:var(--fgm)"><span class="px-2 py-0.5 rounded-full ${sc} text-[10px]">${g.st==='verified'?'Verified':g.st==='under_review'?'Under Review':'Draft'}</span><span>by <strong style="color:var(--fg)">${esc(au?.username||'Unknown')}</strong></span><span>&middot;</span><span>${new Date(g.sat).toLocaleDateString()}</span></div></div></div></div>
+
+ ${pg.length?`<div class="p-3 rounded-xl mb-4" style="background:rgba(8,145,178,.07);border:1px solid rgba(8,145,178,.18)"><h2 class="fd font-bold text-sm mb-2 flex items-center gap-2" style="color:var(--fg)"><i class="fas fa-link text-xs" style="color:var(--acc)"></i>Prerequisites</h2><div class="space-y-1">${pg.map(p=>`<a href="#/guide/${p.id}" class="flex items-center gap-2 text-xs p-1.5 rounded" style="color:var(--fg);background:rgba(255,255,255,.02)"><span class="lb l${cl(p.lv,1,5)}" style="width:20px;height:20px;font-size:9px">${p.lv}</span>${esc(p.title)}</a>`).join('')}</div></div>`:''}
+
+ ${g.out?.length?`<div class="p-3 rounded-xl mb-4" style="background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.18)"><h2 class="fd font-bold text-sm mb-2 flex items-center gap-2" style="color:var(--fg)"><i class="fas fa-check-circle text-xs" style="color:var(--ok)"></i>What You Will Be Able to Do</h2><ul class="space-y-1">${g.out.map(o=>`<li class="flex items-start gap-2 text-xs" style="color:var(--fgm)"><i class="fas fa-check text-[10px] mt-0.5" style="color:var(--ok)"></i>${esc(o)}</li>`).join('')}</ul></div>`:''}
+
+ ${g.safe?.length?`<div class="p-3 rounded-xl mb-4" style="background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18)"><h2 class="fd font-bold text-sm mb-2 flex items-center gap-2" style="color:#EF4444"><i class="fas fa-triangle-exclamation text-xs"></i>Safety Warnings</h2><ul class="space-y-1">${g.safe.map(s=>`<li class="flex items-start gap-2 text-xs" style="color:var(--fgm)"><i class="fas fa-exclamation text-[10px] mt-0.5" style="color:#EF4444"></i>${esc(s)}</li>`).join('')}</ul></div>`:''}
+
+ ${g.mat?.length?`<div class="p-3 rounded-xl mb-4" style="background:var(--card);border:1px solid var(--brd)"><h2 class="fd font-bold text-sm mb-2 flex items-center gap-2" style="color:var(--fg)"><i class="fas fa-toolbox text-xs" style="color:var(--acc)"></i>Materials and Tools</h2><div class="grid sm:grid-cols-2 gap-1">${g.mat.map(m=>`<div class="flex items-center gap-2 text-xs" style="color:var(--fgm)"><i class="fas fa-circle text-[3px]" style="color:var(--brd)"></i>${esc(m)}</div>`).join('')}</div></div>`:''}
+
+<div class="guide-content mb-6"><p>${rc(g.cnt||'')}</p></div>
+
+ ${nx.length?`<div class="p-3 rounded-xl" style="background:rgba(217,119,6,.07);border:1px solid rgba(217,119,6,.18)"><h2 class="fd font-bold text-sm mb-2 flex items-center gap-2" style="color:var(--acc2)"><i class="fas fa-arrow-right text-xs"></i>What This Enables</h2><div class="space-y-1">${nx.map(n=>`<a href="#/guide/${n.id}" class="flex items-center gap-2 text-xs p-1.5 rounded" style="color:var(--fg);background:rgba(255,255,255,.02)"><span class="lb l${cl(n.lv,1,5)}" style="width:20px;height:20px;font-size:9px">${n.lv}</span>${esc(n.title)}</a>`).join('')}</div></div>`:''}
+</article>
+
+<aside class="lg:w-72 flex-shrink-0 space-y-4">
+<!-- Live Resources Panel -->
+<div class="p-3 rounded-xl" style="background:var(--card);border:1px solid var(--brd)">
+  <h3 class="fd font-semibold text-xs mb-2 flex items-center gap-2" style="color:var(--fg)"><i class="fas fa-globe text-[10px]" style="color:var(--acc)"></i>External Resources</h3>
+  <p class="text-[10px] mb-2" style="color:var(--fgm)">Real results from free knowledge sources</p>
+  <div id="guide-resources-${g.id}">
+    <button onclick="loadGuideResources('${g.id}','${esc(g.title)}')" class="w-full py-2 rounded-lg text-xs fd font-semibold" style="background:var(--bg3);color:var(--acc);border:1px solid var(--brd)"><i class="fas fa-search mr-1"></i>Search Resources</button>
+  </div>
+</div>
+
+ ${sls.length?`<div class="p-3 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h3 class="fd font-semibold text-xs mb-2 flex items-center gap-2" style="color:var(--fg)"><i class="fas fa-box-open text-[10px]" style="color:var(--acc2)"></i>Recommended Materials</h3><div class="space-y-2">${sls.map(l=>{const av=db.avgR(l.id),rv=db.gr(l.id);return `<div class="p-2 rounded-lg" style="background:var(--bg3)"><div class="fd font-semibold text-xs mb-0.5" style="color:var(--fg)">${esc(l.name)}</div><div class="text-[10px] mb-1" style="color:var(--fgm)">${esc(l.adv)} &middot; ${esc(l.price)}</div><div class="flex items-center gap-0.5">${[1,2,3,4,5].map(s=>`<i class="fas fa-star text-[9px]" style="color:${s<=Math.round(av)?'#F59E0B':'var(--brd)'}"></i>`).join('')}<span class="text-[10px] ml-1" style="color:var(--fgm)">${av?av.toFixed(1):'—'}</span></div></div>`}).join('')}</div></div>`:''}
+
+<div class="p-3 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h3 class="fd font-semibold text-xs mb-2" style="color:var(--fg)">Actions</h3><div class="space-y-1"><button onclick="exportGuide('${g.id}')" class="w-full text-left flex items-center gap-2 text-xs px-2 py-1.5 rounded" style="color:var(--fgm);background:var(--bg3)"><i class="fas fa-download text-[10px]"></i>Export PDF</button></div></div>
+</aside></div></div>`}
+
+async function loadGuideResources(guideId, query){
+  const el=document.getElementById('guide-resources-'+guideId);
+  if(!el)return;
+  el.innerHTML=`<div class="space-y-2"><div class="skel h-4 w-full rounded"></div><div class="skel h-4 w-3/4 rounded"></div><div class="skel h-4 w-5/6 rounded"></div><p class="text-[10px]" style="color:var(--fgm)">Searching Wikipedia, Open Library, Semantic Scholar...</p></div>`;
+
+  const results = await API.searchAll(query, ['wikipedia','openlibrary','semanticscholar']);
+  let html='';
+  const wiki=results.wikipedia||[], ol=results.openlibrary||[], ss=results.semanticscholar||[];
+
+  if(wiki.length){
+    html+=`<div class="mb-2"><p class="text-[10px] fd font-semibold mb-1" style="color:#636466"><i class="fa-brands fa-wikipedia-w"></i> Wikipedia</p>`;
+    wiki.slice(0,2).forEach(r=>{html+=`<a href="${r.url}" target="_blank" class="block p-1.5 rounded text-[10px] mb-1 rc" style="background:var(--bg3);color:var(--fg);border:1px solid transparent"><strong>${esc(r.title)}</strong><br><span style="color:var(--fgm)">${esc(r.snippet.slice(0,80))}...</span></a>`});
+    html+=`</div>`;
+  }
+  if(ol.length){
+    html+=`<div class="mb-2"><p class="text-[10px] fd font-semibold mb-1" style="color:#D97706"><i class="fa-solid fa-book"></i> Open Library</p>`;
+    ol.slice(0,2).forEach(r=>{html+=`<a href="${r.url}" target="_blank" class="block p-1.5 rounded text-[10px] mb-1 rc" style="background:var(--bg3);color:var(--fg);border:1px solid transparent">${r.cover?`<img src="${r.cover}" class="w-6 h-8 object-cover rounded inline mr-1" onerror="this.style.display='none'>`:''}<strong>${esc(r.title)}</strong><br><span style="color:var(--fgm)">${esc(r.snippet.slice(0,60))}</span></a>`});
+    html+=`</div>`;
+  }
+  if(ss.length){
+    html+=`<div class="mb-2"><p class="text-[10px] fd font-semibold mb-1" style="color:#7C3AED"><i class="fa-solid fa-graduation-cap"></i> Papers</p>`;
+    ss.slice(0,2).forEach(r=>{html+=`<a href="${r.url}" target="_blank" class="block p-1.5 rounded text-[10px] mb-1 rc" style="background:var(--bg3);color:var(--fg);border:1px solid transparent"><strong>${esc(r.title.slice(0,50))}</strong>${r.citations?` <span style="color:var(--fgm)">(${r.citations} cit.)</span>`:''}<br><span style="color:var(--fgm)">${esc((r.snippet||'').slice(0,60))}</span></a>`});
+    html+=`</div>`;
+  }
+  if(!html) html=`<p class="text-[10px]" style="color:var(--fgm)">No external resources found.</p>`;
+
+  html+=`<a href="#/discover" class="text-[10px] fd font-medium block mt-1" style="color:var(--acc)">Search more resources &rarr;</a>`;
+  el.innerHTML=html;
+}
+
+function exportGuide(id){toast('PDF export initiated','info')}
+
+// ===================== CREATE PAGE =====================
+function pCreate(){if(!A.cu)return`<div class="max-w-xl mx-auto px-4 py-16 text-center"><i class="fas fa-lock text-3xl mb-3" style="color:var(--brd)"></i><h1 class="fd font-bold text-xl mb-2" style="color:var(--fg)">Sign In Required</h1><p class="text-sm mb-3" style="color:var(--fgm)">You need an account to create guides.</p><button onclick="showLogin()" class="px-5 py-2 rounded-lg fd font-semibold text-white text-sm" style="background:var(--acc)">Sign In</button></div>`;
+const dm=db.d.domains.filter(d=>!d.pid),ag=db.d.guides.filter(g=>g.st==='verified');
+return `<div class="max-w-3xl mx-auto px-4 py-6"><h1 class="fd font-extrabold text-xl md:text-2xl mb-1" style="color:var(--fg)">Create a New Guide</h1><p class="text-xs mb-6" style="color:var(--fgm)">Follow the template to meet B.L.U.E. standards.</p><div class="space-y-5"><div class="p-5 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h2 class="fd font-bold text-base mb-3" style="color:var(--fg)">Guide Details</h2><div class="space-y-3"><div><label class="fd font-medium text-xs mb-1 block" style="color:var(--fg)">Title</label><input id="ct" type="text" placeholder="e.g., Build a PWM Motor Controller" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"></div><div class="grid sm:grid-cols-2 gap-3"><div><label class="fd font-medium text-xs mb-1 block" style="color:var(--fg)">Domain</label><select id="cd" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"><option value="">Select...</option>${dm.map(d=>`<option value="${d.id}">${esc(d.name)}</option>`).join('')}</select></div><div><label class="fd font-medium text-xs mb-1 block" style="color:var(--fg)">Level</label><select id="cl2" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)">${[1,2,3,4,5].map(l=>`<option value="${l}">Level ${l}</option>`).join('')}</select></div></div><div><label class="fd font-medium text-xs mb-1 block" style="color:var(--fg)">Outcomes (one per line)</label><textarea id="co" rows="2" placeholder="What will the learner be able to do?" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"></textarea></div><div><label class="fd font-medium text-xs mb-1 block" style="color:var(--fg)">Safety Warnings (one per line)</label><textarea id="cs" rows="2" class="w-full px-3 py-2 rounded-lg text-sm" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"></textarea></div></div></div><div class="p-5 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h2 class="fd font-bold text-base mb-2" style="color:var(--fg)">Prerequisites</h2><p class="text-xs mb-3" style="color:var(--fgm)">Select verified guides required before this one.</p><div class="space-y-1 max-h-60 overflow-y-auto">${ag.map(g=>{const d=db.gd(g.did);return `<label class="flex items-center gap-2 p-1.5 rounded cursor-pointer text-xs" style="background:var(--bg3)" data-t="${esc(g.title.toLowerCase())}"><input type="checkbox" class="cp" value="${g.id}"><span class="lb l${cl(g.lv,1,5)}" style="width:18px;height:18px;font-size:8px">${g.lv}</span><span style="color:var(--fg)">${esc(g.title)}</span></label>`}).join('')}</div></div><div class="p-5 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h2 class="fd font-bold text-base mb-2" style="color:var(--fg)">Guide Content</h2><p class="text-xs mb-3" style="color:var(--fgm)">Write in Markdown. Use ## for headings, **bold**, > for quotes.</p><textarea id="cc" rows="10" placeholder="## Introduction\n\n## Step 1: ..." class="w-full px-3 py-2 rounded-lg text-sm font-mono" style="background:var(--bg3);color:var(--fg);border:1px solid var(--brd)"></textarea></div><button onclick="submitGuide()" class="w-full py-2.5 rounded-lg fd font-bold text-white text-sm" style="background:var(--acc)">Submit for Verification</button></div></div>`}
+
+function submitGuide(){if(!A.cu)return;const t=document.getElementById('ct')?.value?.trim(),d=document.getElementById('cd')?.value,l=parseInt(document.getElementById('cl2')?.value),o=document.getElementById('co')?.value,s=document.getElementById('cs')?.value,c=document.getElementById('cc')?.value;if(!t||!d||!l||!c){toast('Fill in all required fields','warning');return}const prs=[...document.querySelectorAll('.cp:checked')].map(x=>x.value);const g={id:uid(),title:t,did:d,sid:d,lv:l,st:'draft',aid:A.cu.id,ed:1,out:o.split('\n').filter(Boolean),mat:[],safe:s.split('\n').filter(Boolean),cnt:c,nx:[],sat:now(),vat:null};db.d.guides.push(g);prs.forEach(rid=>{if(!db.wcc(g.id,rid))db.d.prereqs.push({id:uid(),gid:g.id,rid,cg:1,ct:'required'})});db.save();toast('Guide submitted! It will enter the verification queue.','success');nav('#/browse?status=all')}
+
+// ===================== VERIFY PAGE =====================
+function pVerify(){const rounds=db.d.verifs;const myRounds=rounds.filter(r=>r.vids?.includes(A.cu?.id)&&r.st==='active');
+return `<div class="max-w-4xl mx-auto px-4 py-6"><h1 class="fd font-extrabold text-xl md:text-2xl mb-2" style="color:var(--fg)">Verification Dashboard</h1><p class="text-xs mb-6" style="color:var(--fgm)">Review submitted guides. Your votes are encrypted and hidden until the round closes.</p>
+ ${!A.cu?`<div class="text-center py-10"><p class="text-sm mb-3" style="color:var(--fgm)">Sign in to participate in verification.</p><button onclick="showLogin()" class="px-5 py-2 rounded-lg fd font-semibold text-white text-sm" style="background:var(--acc)">Sign In</button></div>`:
+!A.iv()?`<div class="p-4 rounded-xl text-center" style="background:var(--card);border:1px solid var(--brd)"><i class="fas fa-shield-halved text-2xl mb-2" style="color:var(--brd)"></i><p class="text-sm" style="color:var(--fg)">You are not yet a certified Verifier.</p><p class="text-xs mt-1" style="color:var(--fgm)">Contribute high-quality guides to build reputation, then apply for Verifier status.</p></div>`:
+`<div class="space-y-4">
+<div class="p-4 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h2 class="fd font-bold text-base mb-3 flex items-center gap-2" style="color:var(--fg)"><span class="pd inline-block w-2 h-2 rounded-full" style="background:var(--acc2)"></span>Active Review Rounds</h2>${rounds.filter(r=>r.st==='active').map(r=>{const g=db.gg(r.gid);const myVote=db.d.votes.find(v=>v.rid===r.id&&v.vid===A.cu?.id);const otherVoters=r.vids.filter(v=>v!==A.cu?.id);
+return `<div class="p-3 rounded-lg mb-3" style="background:var(--bg3)"><div class="flex items-start justify-between mb-2"><div><h3 class="fd font-semibold text-sm" style="color:var(--fg)">${esc(g?.title||'Unknown')}</h3><p class="text-[10px]" style="color:var(--fgm)">Level ${g?.lv||'?'} &middot; ${r.vids.length} verifiers &middot; Started ${new Date(r.at).toLocaleDateString()}</p></div><span class="text-[10px] px-2 py-0.5 rounded-full sr">Active</span></div>
+ ${myVote&&!myVote.vote?`<div class="space-y-2 mt-3"><p class="text-xs fd font-medium" style="color:var(--fg)">Cast your vote:</p><textarea id="vfb-${r.id}" rows="2" placeholder="Required: What is correct/wrong and why..." class="w-full px-3 py-2 rounded-lg text-xs" style="background:var(--bg);color:var(--fg);border:1px solid var(--brd)"></textarea><div class="flex gap-2"><button onclick="castVote('${r.id}','approve')" class="px-4 py-1.5 rounded-lg text-xs fd font-semibold text-white" style="background:var(--ok)">Approve</button><button onclick="castVote('${r.id}','reject')" class="px-4 py-1.5 rounded-lg text-xs fd font-semibold text-white" style="background:var(--err)">Reject</button></div></div>`:myVote?.vote?`<p class="text-xs mt-2" style="color:var(--ok)"><i class="fas fa-check"></i> You voted: ${myVote.vote}. Waiting for other verifiers.</p>`:`<p class="text-xs mt-2" style="color:var(--fgm)">You are not assigned to this round.</p>`}
+</div>`}).join('')}
+</div>
+<div class="p-4 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h2 class="fd font-bold text-base mb-3" style="color:var(--fg)">How Blind Verification Works</h2><div class="grid sm:grid-cols-3 gap-3">${[{i:'fa-user-secret',t:'Random Assignment',d:'Verifiers are randomly selected from certified pool. Authors cannot choose reviewers.'},{i:'fa-eye-slash',t:'Blind Voting',d:'Votes are encrypted. No verifier can see others\' votes until all have submitted.'},{i:'fa-scale-balanced',t:'Majority Decision',d:'Odd number of verifiers ensures a clear majority. Near-ties escalate to senior verifiers.'}].map(f=>`<div class="p-3 rounded-lg" style="background:var(--bg3)"><i class="fas ${f.i} text-sm mb-1" style="color:var(--acc)"></i><h3 class="fd font-semibold text-xs mb-1" style="color:var(--fg)">${f.t}</h3><p class="text-[10px]" style="color:var(--fgm)">${f.d}</p></div>`).join('')}</div></div>
+</div>`}
+</div>`}
+
+function castVote(rid,vote){const fb=document.getElementById('vfb-'+rid)?.value;if(!fb?.trim()){toast('Feedback is required — explain your reasoning','warning');return}const v=db.d.votes.find(v=>v.rid===rid&&v.vid===A.cu?.id);if(v){v.vote=vote;v.fb=fb;v.at=now();db.save();toast('Vote cast! It is encrypted until the round closes.','success');renderR()}}
+
+// ===================== GRAPH PAGE =====================
+function pGraph(){return `<div class="max-w-7xl mx-auto px-4 py-6"><h1 class="fd font-extrabold text-xl md:text-2xl mb-2" style="color:var(--fg)">Knowledge Graph</h1><p class="text-xs mb-4" style="color:var(--fgm)">Interactive visualization of the prerequisite DAG. Drag to pan, scroll to zoom. Arrows point from prerequisites to advanced guides.</p><div class="rounded-xl overflow-hidden" style="background:var(--card);border:1px solid var(--brd)"><canvas id="gc2" style="width:100%;height:500px;cursor:grab"></canvas></div><div class="mt-3 flex flex-wrap gap-3">${db.d.domains.filter(d=>!d.pid).map(d=>`<span class="flex items-center gap-1.5 text-xs" style="color:var(--fgm)"><span class="w-3 h-3 rounded" style="background:${d.color}"></span>${esc(d.name)}</span>`).join('')}</div></div>`}
+
+function initGC(){const canvas=document.getElementById('gc2');if(!canvas)return;const ctx=canvas.getContext('2d');const dpr=window.devicePixelRatio||1;const rect=canvas.getBoundingClientRect();canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;ctx.scale(dpr,dpr);const W=rect.width,H=rect.height;
+
+const guides=db.d.guides.filter(g=>g.st==='verified'||g.st==='under_review');const nodes=guides.map((g,i)=>{const d=db.gd(g.did);return{id:g.id,title:g.title,lv:g.lv,did:g.did,color:d?.color||'#0891B2',x:100+Math.random()*(W-200),y:60+Math.random()*(H-120),vx:0,vy:0}});
+const edges=[];db.d.prereqs.forEach(p=>{const from=nodes.find(n=>n.id===p.rid),to=nodes.find(n=>n.id===p.gid);if(from&&to)edges.push({from,to})});
+
+const nodeMap={};nodes.forEach(n=>nodeMap[n.id]=n);
+
+// Force simulation
+let drag=null,panX=0,panY=0,isPanning=false,lastMx=0,lastMy=0,zoom=1;
+function sim(){nodes.forEach(n=>{n.vx*=0.9;n.vy*=0.9});
+// Repulsion
+for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const dx=nodes[j].x-nodes[i].x,dy=nodes[j].y-nodes[i].y,d=Math.max(Math.sqrt(dx*dx+dy*dy),1),f=800/(d*d);nodes[i].vx-=f*dx/d;nodes[i].vy-=f*dy/d;nodes[j].vx+=f*dx/d;nodes[j].vy+=f*dy/d}
+// Attraction along edges
+edges.forEach(e=>{const dx=e.to.x-e.from.x,dy=e.to.y-e.from.y,d=Math.max(Math.sqrt(dx*dx+dy*dy),1),f=(d-120)*0.005;e.from.vx+=f*dx/d;e.from.vy+=f*dy/d;e.to.vx-=f*dx/d;e.to.vy-=f*dy/d});
+// Level constraint (vertical)
+nodes.forEach(n=>{const ty=60+n.lv*(H-120)/5;n.vy+=(ty-n.y)*0.01});
+// Centering
+nodes.forEach(n=>{n.vx+=(W/2-n.x)*0.001;n.vy+=(H/2-n.y)*0.001});
+// Update
+nodes.forEach(n=>{if(drag&&drag.id===n.id)return;n.x+=n.vx;n.y+=n.vy;n.x=cl(n.x,30,W-30);n.y=cl(n.y,30,H-30)})}
+
+function draw(){ctx.clearRect(0,0,W,H);ctx.save();ctx.translate(panX,panY);ctx.scale(zoom,zoom);
+// Edges
+edges.forEach(e=>{ctx.beginPath();ctx.moveTo(e.from.x,e.from.y);ctx.lineTo(e.to.x,e.to.y);ctx.strokeStyle='rgba(51,65,85,0.5)';ctx.lineWidth=1.5;ctx.stroke();
+// Arrow
+const dx=e.to.x-e.from.x,dy=e.to.y-e.from.y,d=Math.max(Math.sqrt(dx*dx+dy*dy),1),ax=e.to.x-dx/d*25,ay=e.to.y-dy/d*25;ctx.beginPath();const angle=Math.atan2(dy,dx);ctx.moveTo(ax,ay);ctx.lineTo(ax-8*Math.cos(angle-0.4),ay-8*Math.sin(angle-0.4));ctx.lineTo(ax-8*Math.cos(angle+0.4),ay-8*Math.sin(angle+0.4));ctx.closePath();ctx.fillStyle='rgba(51,65,85,0.7)';ctx.fill()});
+// Nodes
+nodes.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,20,0,Math.PI*2);ctx.fillStyle=n.color+'33';ctx.fill();ctx.strokeStyle=n.color;ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#fff';ctx.font='bold 11px Outfit';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(n.lv,n.x,n.y);ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--fg').trim()||'#F1F5F9';ctx.font='9px Outfit';const t=n.title.length>20?n.title.slice(0,18)+'…':n.title;ctx.fillText(t,n.x,n.y+30)});
+ctx.restore()}
+
+function loop(){sim();draw();requestAnimationFrame(loop)}
+loop();
+
+canvas.addEventListener('mousedown',e=>{const rect=canvas.getBoundingClientRect();const mx=(e.clientX-rect.left-panX)/zoom,my=(e.clientY-rect.top-panY)/zoom;const hit=nodes.find(n=>{const dx=n.x-mx,dy=n.y-my;return dx*dx+dy*dy<400});if(hit){drag=hit;canvas.style.cursor='grabbing'}else{isPanning=true;lastMx=e.clientX;lastMy=e.clientY;canvas.style.cursor='grabbing'}});
+canvas.addEventListener('mousemove',e=>{const rect=canvas.getBoundingClientRect();if(drag){drag.x=cl((e.clientX-rect.left-panX)/zoom,30,W-30);drag.y=cl((e.clientY-rect.top-panY)/zoom,30,H-30);drag.vx=0;drag.vy=0}else if(isPanning){panX+=e.clientX-lastMx;panY+=e.clientY-lastMy;lastMx=e.clientX;lastMy=e.clientY}});
+canvas.addEventListener('mouseup',()=>{drag=null;isPanning=false;canvas.style.cursor='grab'});
+canvas.addEventListener('mouseleave',()=>{drag=null;isPanning=false});
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoom*=e.deltaY>0?0.95:1.05;zoom=cl(zoom,0.3,3)});
+canvas.addEventListener('click',e=>{if(drag)return;const rect=canvas.getBoundingClientRect();const mx=(e.clientX-rect.left-panX)/zoom,my=(e.clientY-rect.top-panY)/zoom;const hit=nodes.find(n=>{const dx=n.x-mx,dy=n.y-my;return dx*dx+dy*dy<400});if(hit)nav('#/guide/'+hit.id)})}
+}
+
+// ===================== PROFILE PAGE =====================
+function pProfile(){if(!A.cu)return`<div class="max-w-xl mx-auto px-4 py-16 text-center"><p class="text-sm mb-3" style="color:var(--fgm)">Sign in to view your profile.</p><button onclick="showLogin()" class="px-5 py-2 rounded-lg fd font-semibold text-white text-sm" style="background:var(--acc)">Sign In</button></div>`;
+const u=A.cu,myGuides=db.d.guides.filter(g=>g.aid===u.id),certs=db.d.certs.filter(c=>c.uid===u.id);
+return `<div class="max-w-3xl mx-auto px-4 py-6"><div class="flex items-center gap-4 mb-6"><div class="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold text-white" style="background:var(--acc)">${u.username[0].toUpperCase()}</div><div><h1 class="fd font-extrabold text-2xl" style="color:var(--fg)">${esc(u.username)}</h1><div class="flex items-center gap-2 text-xs" style="color:var(--fgm)"><span class="px-2 py-0.5 rounded-full" style="background:var(--acc);color:white">${u.role.replace('_',' ')}</span><span>Reputation: ${u.rep}</span><span>&middot;</span><span>Joined ${new Date(u.at).toLocaleDateString()}</span></div></div></div>
+<div class="grid sm:grid-cols-2 gap-4 mb-6"><div class="p-4 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h2 class="fd font-bold text-sm mb-2" style="color:var(--fg)">My Guides</h2><p class="fd font-extrabold text-3xl" style="color:var(--acc)">${myGuides.length}</p>${myGuides.length?`<div class="mt-2 space-y-1">${myGuides.map(g=>`<a href="#/guide/${g.id}" class="block text-xs" style="color:var(--fgm)">${esc(g.title)} <span class="${g.st==='verified'?'sv':'sr'} text-[10px] px-1 rounded">${g.st}</span></a>`).join('')}</div>`:''}</div>
+<div class="p-4 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h2 class="fd font-bold text-sm mb-2" style="color:var(--fg)">Certifications</h2><p class="fd font-extrabold text-3xl" style="color:var(--acc)">${certs.length}</p>${certs.length?`<div class="mt-2 space-y-1">${certs.map(c=>{const d=db.gd(c.did);return `<div class="text-xs" style="color:var(--fgm)">${esc(d?.name||'?')} up to Level ${c.ml}</div>`}).join('')}</div>`:`<p class="text-xs mt-2" style="color:var(--fgm)">No certifications yet. Apply to become a Verifier!</p>`}</div></div>
+
+<div class="p-4 rounded-xl" style="background:var(--card);border:1px solid var(--brd)"><h2 class="fd font-bold text-sm mb-2" style="color:var(--fg)">Quick Actions</h2><div class="flex flex-wrap gap-2"><a href="#/create" class="px-3 py-1.5 rounded-lg text-xs fd font-medium" style="background:var(--acc);color:white">Create Guide</a><a href="#/discover" class="px-3 py-1.5 rounded-lg text-xs fd font-medium" style="border:1px solid var(--brd);color:var(--fg)">Discover Resources</a><button onclick="db.reset();A.out();nav('#/')" class="px-3 py-1.5 rounded-lg text-xs fd font-medium" style="border:1px solid var(--err);color:var(--err)">Reset Demo Data</button></div></div>
+</div>`}
+
+// ===================== HERO CANVAS =====================
+function initHC(){const c=document.getElementById('hc');if(!c)return;const ctx=c.getContext('2d');const dpr=window.devicePixelRatio||1;let w,h;function resize(){w=c.parentElement.offsetWidth;h=c.parentElement.offsetHeight;c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr)}resize();
+const pts=[];for(let i=0;i<60;i++)pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:Math.random()*2+1});
+function draw(){ctx.clearRect(0,0,w,h);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,Math.max(p.r,0.5),0,Math.PI*2);ctx.fillStyle='rgba(8,145,178,0.25)';ctx.fill()});
+for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[j].x-pts[i].x,dy=pts[j].y-pts[i].y,d=Math.sqrt(dx*dx+dy*dy);if(d<150){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(8,145,178,${0.08*(1-d/150)})`;ctx.lineWidth=1;ctx.stroke()}}
+requestAnimationFrame(draw)}draw();window.addEventListener('resize',resize)}
+
+// ===================== INIT =====================
+A.init();
+renderR();
 </script>
+</body>
+</html>
